@@ -1,0 +1,38 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="documentTuile">
+            <h2><span>Document Tuile</span> {{documentTuile.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Content</span></dt>
+                <dd>
+                    <div *ngIf="documentTuile.content">
+                        <a (click)="openFile(documentTuile.contentContentType, documentTuile.content)">
+                            <img [src]="'data:' + documentTuile.contentContentType + ';base64,' + documentTuile.content" style="max-width: 100%;" alt="documentTuile image"/>
+                        </a>
+                        {{documentTuile.contentContentType}}, {{byteSize(documentTuile.content)}}
+                    </div>
+                </dd>
+                <dt><span>Document</span></dt>
+                <dd>
+                    <div *ngIf="documentTuile.document">
+                        <a [routerLink]="['/document', documentTuile.document?.id, 'view']">{{documentTuile.document?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/document-tuile', documentTuile.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

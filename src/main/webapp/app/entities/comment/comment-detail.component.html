@@ -1,0 +1,84 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="comment">
+            <h2><span>Comment</span> {{comment.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Label</span></dt>
+                <dd>
+                    <span>{{comment.label}}</span>
+                </dd>
+                <dt><span>Comment</span></dt>
+                <dd>
+                    <span>{{comment.comment}}</span>
+                </dd>
+                <dt><span>Positionx</span></dt>
+                <dd>
+                    <span>{{comment.positionx}}</span>
+                </dd>
+                <dt><span>Positiony</span></dt>
+                <dd>
+                    <span>{{comment.positiony}}</span>
+                </dd>
+                <dt><span>Width</span></dt>
+                <dd>
+                    <span>{{comment.width}}</span>
+                </dd>
+                <dt><span>Heigth</span></dt>
+                <dd>
+                    <span>{{comment.heigth}}</span>
+                </dd>
+                <dt><span>Modified</span></dt>
+                <dd>
+                    <span>{{comment.modified}}</span>
+                </dd>
+                <dt><span>Echeance</span></dt>
+                <dd>
+                    <span>{{comment.echeance}}</span>
+                </dd>
+                <dt><span>Image</span></dt>
+                <dd>
+                    <div *ngIf="comment.image">
+                        <a (click)="openFile(comment.imageContentType, comment.image)">
+                            <img [src]="'data:' + comment.imageContentType + ';base64,' + comment.image" style="max-width: 100%;" alt="comment image"/>
+                        </a>
+                        {{comment.imageContentType}}, {{byteSize(comment.image)}}
+                    </div>
+                </dd>
+                <dt><span>Type</span></dt>
+                <dd>
+                    <span>{{comment.type}}</span>
+                </dd>
+                <dt><span>State</span></dt>
+                <dd>
+                    <span>{{comment.state}}</span>
+                </dd>
+                <dt><span>Icon</span></dt>
+                <dd>
+                    <div *ngIf="comment.icon">
+                        <a [routerLink]="['/icon', comment.icon?.id, 'view']">{{comment.icon?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Visite</span></dt>
+                <dd>
+                    <div *ngIf="comment.visite">
+                        <a [routerLink]="['/visite', comment.visite?.id, 'view']">{{comment.visite?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/comment', comment.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

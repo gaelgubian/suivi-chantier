@@ -1,0 +1,65 @@
+{
+    "name": "Chantier",
+    "fields": [
+        {
+            "fieldName": "label",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 64
+        },
+        {
+            "fieldName": "image",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image",
+            "fieldValidateRules": [
+                "maxbytes"
+            ],
+            "fieldValidateRulesMaxbytes": 1024000
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dateDebut",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "dateFin",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "biens",
+            "otherEntityName": "bien",
+            "otherEntityRelationshipName": "chantier"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "documents",
+            "otherEntityName": "document",
+            "otherEntityRelationshipName": "chantier"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "chantierIntervenant",
+            "otherEntityName": "chantierIntervenant",
+            "otherEntityRelationshipName": "chantier"
+        }
+    ],
+    "changelogDate": "20180926002956",
+    "javadoc": "application {\nconfig {\nbaseName suivichantier,\nnativeLanguage fr,\npackageName fr.gubian.suivichantier,\nprodDatabaseType postgresql\n}\n}",
+    "entityTableName": "chantier",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

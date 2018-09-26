@@ -1,0 +1,51 @@
+{
+    "name": "Visite",
+    "fields": [
+        {
+            "fieldName": "label",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "bien",
+            "otherEntityName": "bien",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "document",
+            "otherEntityName": "document",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "visite"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "comments",
+            "otherEntityName": "comment",
+            "otherEntityRelationshipName": "visite"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "signature",
+            "otherEntityName": "signature",
+            "otherEntityRelationshipName": "visite"
+        }
+    ],
+    "changelogDate": "20180926003006",
+    "javadoc": "Réunion, visite",
+    "entityTableName": "visite",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,62 @@
+{
+    "name": "Document",
+    "fields": [
+        {
+            "fieldName": "label",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "path",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "signature",
+            "otherEntityName": "signature",
+            "otherEntityRelationshipName": "document"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "documentTuile",
+            "otherEntityName": "documentTuile",
+            "otherEntityRelationshipName": "document"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "visite",
+            "otherEntityName": "visite",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "document"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "chantier",
+            "otherEntityName": "chantier",
+            "otherEntityField": "label"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "chantier",
+            "otherEntityName": "bien",
+            "otherEntityField": "label"
+        }
+    ],
+    "changelogDate": "20180926003000",
+    "entityTableName": "document",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

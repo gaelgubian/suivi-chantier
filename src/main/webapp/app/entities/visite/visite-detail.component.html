@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="visite">
+            <h2><span>Visite</span> {{visite.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Label</span></dt>
+                <dd>
+                    <span>{{visite.label}}</span>
+                </dd>
+                <dt><span>Date</span></dt>
+                <dd>
+                    <span>{{visite.date}}</span>
+                </dd>
+                <dt><span>Bien</span></dt>
+                <dd>
+                    <div *ngIf="visite.bien">
+                        <a [routerLink]="['/bien', visite.bien?.id, 'view']">{{visite.bien?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Document</span></dt>
+                <dd>
+                    <div *ngIf="visite.document">
+                        <a [routerLink]="['/document', visite.document?.id, 'view']">{{visite.document?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/visite', visite.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

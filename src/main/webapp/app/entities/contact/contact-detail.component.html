@@ -1,0 +1,73 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="contact">
+            <h2><span>Contact</span> {{contact.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Label</span></dt>
+                <dd>
+                    <span>{{contact.label}}</span>
+                </dd>
+                <dt><span>Login</span></dt>
+                <dd>
+                    <span>{{contact.login}}</span>
+                </dd>
+                <dt><span>Prenom</span></dt>
+                <dd>
+                    <span>{{contact.prenom}}</span>
+                </dd>
+                <dt><span>Nom</span></dt>
+                <dd>
+                    <span>{{contact.nom}}</span>
+                </dd>
+                <dt><span>Email</span></dt>
+                <dd>
+                    <span>{{contact.email}}</span>
+                </dd>
+                <dt><span>Telephone Mobile</span></dt>
+                <dd>
+                    <span>{{contact.telephoneMobile}}</span>
+                </dd>
+                <dt><span>Telephone 2</span></dt>
+                <dd>
+                    <span>{{contact.telephone2}}</span>
+                </dd>
+                <dt><span>Fax</span></dt>
+                <dd>
+                    <span>{{contact.fax}}</span>
+                </dd>
+                <dt><span>Description</span></dt>
+                <dd>
+                    <span>{{contact.description}}</span>
+                </dd>
+                <dt><span>Poste</span></dt>
+                <dd>
+                    <span>{{contact.poste}}</span>
+                </dd>
+                <dt><span>Corpmetier</span></dt>
+                <dd>
+                    <span>{{contact.corpmetier}}</span>
+                </dd>
+                <dt><span>Adressecontact</span></dt>
+                <dd>
+                    <div *ngIf="contact.adressecontact">
+                        <a [routerLink]="['/adresse', contact.adressecontact?.id, 'view']">{{contact.adressecontact?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/contact', contact.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

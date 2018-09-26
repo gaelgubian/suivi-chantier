@@ -1,0 +1,47 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="document">
+            <h2><span>Document</span> {{document.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Label</span></dt>
+                <dd>
+                    <span>{{document.label}}</span>
+                </dd>
+                <dt><span>Description</span></dt>
+                <dd>
+                    <span>{{document.description}}</span>
+                </dd>
+                <dt><span>Path</span></dt>
+                <dd>
+                    <span>{{document.path}}</span>
+                </dd>
+                <dt><span>Chantier</span></dt>
+                <dd>
+                    <div *ngIf="document.chantier">
+                        <a [routerLink]="['/chantier', document.chantier?.id, 'view']">{{document.chantier?.label}}</a>
+                    </div>
+                </dd>
+                <dt><span>Chantier</span></dt>
+                <dd>
+                    <div *ngIf="document.chantier">
+                        <a [routerLink]="['/bien', document.chantier?.id, 'view']">{{document.chantier?.label}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/document', document.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

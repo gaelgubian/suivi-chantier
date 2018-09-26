@@ -1,0 +1,85 @@
+<div>
+    <h2 id="page-heading">
+        <span>Signatures</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-signature" [routerLink]="['/signature/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Signature
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="signatures">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="image"><span>Image</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="chantierIntervenant.id"><span>Chantier Intervenant</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="document.id"><span>Document</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="visite.id"><span>Visite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let signature of signatures ;trackBy: trackId">
+                <td><a [routerLink]="['/signature', signature.id, 'view' ]">{{signature.id}}</a></td>
+                <td>
+                    <a *ngIf="signature.image" (click)="openFile(signature.imageContentType, signature.image)">
+                        <img [src]="'data:' + signature.imageContentType + ';base64,' + signature.image" style="max-height: 30px;" alt="signature image"/>
+                    </a>
+                    <span *ngIf="signature.image">{{signature.imageContentType}}, {{byteSize(signature.image)}}</span>
+                </td>
+                <td>
+                    <div *ngIf="signature.chantierIntervenant">
+                        <a [routerLink]="['../chantier-intervenant', signature.chantierIntervenant?.id, 'view' ]" >{{signature.chantierIntervenant?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="signature.document">
+                        <a [routerLink]="['../document', signature.document?.id, 'view' ]" >{{signature.document?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="signature.visite">
+                        <a [routerLink]="['../visite', signature.visite?.id, 'view' ]" >{{signature.visite?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/signature', signature.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/signature', signature.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'signature/'+ signature.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="signatures && signatures.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

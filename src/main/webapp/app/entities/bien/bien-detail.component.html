@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="bien">
+            <h2><span>Bien</span> {{bien.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Label</span></dt>
+                <dd>
+                    <span>{{bien.label}}</span>
+                </dd>
+                <dt><span>Description</span></dt>
+                <dd>
+                    <span>{{bien.description}}</span>
+                </dd>
+                <dt><span>Chantier</span></dt>
+                <dd>
+                    <div *ngIf="bien.chantier">
+                        <a [routerLink]="['/chantier', bien.chantier?.id, 'view']">{{bien.chantier?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Adressechantier</span></dt>
+                <dd>
+                    <div *ngIf="bien.adressechantier">
+                        <a [routerLink]="['/adresse', bien.adressechantier?.id, 'view']">{{bien.adressechantier?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/bien', bien.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

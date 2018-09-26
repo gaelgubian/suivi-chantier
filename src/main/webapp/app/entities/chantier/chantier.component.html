@@ -1,0 +1,75 @@
+<div>
+    <h2 id="page-heading">
+        <span>Chantiers</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-chantier" [routerLink]="['/chantier/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Chantier
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="chantiers">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="label"><span>Label</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="image"><span>Image</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="description"><span>Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dateDebut"><span>Date Debut</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dateFin"><span>Date Fin</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let chantier of chantiers ;trackBy: trackId">
+                <td><a [routerLink]="['/chantier', chantier.id, 'view' ]">{{chantier.id}}</a></td>
+                <td>{{chantier.label}}</td>
+                <td>
+                    <a *ngIf="chantier.image" (click)="openFile(chantier.imageContentType, chantier.image)">
+                        <img [src]="'data:' + chantier.imageContentType + ';base64,' + chantier.image" style="max-height: 30px;" alt="chantier image"/>
+                    </a>
+                    <span *ngIf="chantier.image">{{chantier.imageContentType}}, {{byteSize(chantier.image)}}</span>
+                </td>
+                <td>{{chantier.description}}</td>
+                <td>{{chantier.dateDebut | date:'mediumDate'}}</td>
+                <td>{{chantier.dateFin | date:'mediumDate'}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/chantier', chantier.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/chantier', chantier.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'chantier/'+ chantier.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="chantiers && chantiers.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-chantier-intervenant-heading">Create or edit a Chantier Intervenant</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!chantierIntervenant.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="chantierIntervenant.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_corpmetier">Corpmetier</label>
+                    <select class="form-control" name="corpmetier" [(ngModel)]="chantierIntervenant.corpmetier" id="field_corpmetier" >
+                        <option value="TERRASSEMENT">TERRASSEMENT</option>
+                        <option value="GROS_OEUVRE">GROS_OEUVRE</option>
+                        <option value="MENUISERIE">MENUISERIE</option>
+                        <option value="ELECTRICITE">ELECTRICITE</option>
+                        <option value="PLOMBERIE">PLOMBERIE</option>
+                        <option value="CHAUFFAGE">CHAUFFAGE</option>
+                        <option value="CARRELAGE">CARRELAGE</option>
+                        <option value="PLATRE">PLATRE</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_role">Role</label>
+                    <select class="form-control" name="role" [(ngModel)]="chantierIntervenant.role" id="field_role" >
+                        <option value="MOA">MOA</option>
+                        <option value="MOE">MOE</option>
+                        <option value="ETUDE">ETUDE</option>
+                        <option value="CONTROLE">CONTROLE</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_contact">Contact</label>
+                    <select class="form-control" id="field_contact" name="contact" [(ngModel)]="chantierIntervenant.contact">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="contactOption.id === chantierIntervenant.contact?.id ? chantierIntervenant.contact : contactOption" *ngFor="let contactOption of contacts; trackBy: trackContactById">{{contactOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_chantier">Chantier</label>
+                    <select class="form-control" id="field_chantier" name="chantier" [(ngModel)]="chantierIntervenant.chantier" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="chantierOption.id === chantierIntervenant.chantier?.id ? chantierIntervenant.chantier : chantierOption" *ngFor="let chantierOption of chantiers; trackBy: trackChantierById">{{chantierOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
