@@ -1,0 +1,142 @@
+/*
+application {
+  config {
+    baseName suivichantier,
+	nativeLanguage fr,
+	packageName fr.gubian.suivichantier,
+	prodDatabaseType postgresql
+  }
+}
+*/
+
+entity Chantier {
+    label String required maxlength(64),
+    image ImageBlob maxbytes(1024000),
+    description String,
+    dateDebut LocalDate,
+    dateFin LocalDate
+}
+
+entity ChantierIntervenant {
+
+}
+
+entity Bien {
+	label String required,
+    description String
+}
+
+entity Adresse {
+	numero String,
+    rue String,
+    complement String,
+    codepostal Integer,
+    ville String,
+    positionx String,
+    positiony String
+}
+
+entity Document {
+	label String required,
+    description String,
+    path String
+}
+
+entity DocumentTuile {
+    content ImageBlob maxbytes(1024000)
+}
+
+entity Signature {
+	image ImageBlob maxbytes(102400)
+}
+
+entity Comment {
+	label String,
+    comment String,
+    positionx Integer,
+    positiony Integer,
+    width Integer,
+    heigth Integer,
+	modified ZonedDateTime,
+    echeance LocalDate,
+    image ImageBlob maxbytes(1024000)
+}
+
+entity Icon {
+	label String,
+    image ImageBlob maxbytes(1024)
+}
+
+/*
+Login calculé à partir du nom et prénom.
+*/
+entity Contact {
+	label String,
+    login String,
+	prenom String maxlength(256),
+	nom String maxlength(256),
+    email String maxlength(256),
+    telephoneMobile String,
+    telephone2 String,
+    fax String,
+	description String,
+    poste String
+}
+
+/* Réunion, visite */
+entity Visite {
+	label String,
+    date LocalDate
+}
+
+enum CommentState {
+	A_VERIFIER, A_CORRIGER, CORRIGE, VALIDE, ABANDONNE
+}
+
+enum Role {
+	MOA, MOE, ETUDE, CONTROLE
+}
+
+enum CommentType {
+    ADMINISTATIF, PLANS, ETUDE, AVANCEMENT, SECURITE, DIVERS
+}
+
+enum Corpsmetier {
+	TERRASSEMENT, GROS_OEUVRE, MENUISERIE, ELECTRICITE, PLOMBERIE, CHAUFFAGE, CARRELAGE, PLATRE
+}
+
+relationship OneToMany {
+    Chantier{biens} to Bien,
+    Chantier{documents(label)} to Document{chantier(label)},
+    Bien{documents(label)} to Document{chantier(label)},
+    Visite{comments} to Comment,
+    Bien{visites} to Visite,
+    Chantier to ChantierIntervenant,
+    Document to Signature,
+    Visite to Signature,
+    Document to DocumentTuile
+}
+
+relationship ManyToOne {
+    Comment{icon} to Icon,
+    Comment{type} to CommentType,
+    Comment{state} to CommentState
+}
+
+relationship ManyToMany {
+    Contact{corpsMetiersPossible} to Corpsmetier
+}
+
+relationship OneToOne {
+    Contact{adressecontact} to Adresse,
+    Bien{adressechantier} to Adresse,
+    ChantierIntervenant to Corpsmetier,
+    Visite{document} to Document,
+    ChantierIntervenant to Contact,
+    ChantierIntervenant to Role,
+    Signature to ChantierIntervenant
+}
+
+paginate * with pagination
+
+service * with serviceClass
