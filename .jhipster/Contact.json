@@ -1,0 +1,89 @@
+{
+    "name": "Contact",
+    "fields": [
+        {
+            "fieldName": "label",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "login",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "prenom",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 256
+        },
+        {
+            "fieldName": "nom",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 256
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 256
+        },
+        {
+            "fieldName": "telephoneMobile",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "telephone2",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "fax",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "poste",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "corpmetier",
+            "fieldType": "Corpsmetier",
+            "fieldValues": "TERRASSEMENT,GROS_OEUVRE,MENUISERIE,ELECTRICITE,PLOMBERIE,CHAUFFAGE,CARRELAGE,PLATRE"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "adressecontact",
+            "otherEntityName": "adresse",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "contact"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "chantierIntervenant",
+            "otherEntityName": "chantierIntervenant",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "contact"
+        }
+    ],
+    "changelogDate": "20180926003005",
+    "javadoc": "Login calculé à partir du nom et prénom.",
+    "entityTableName": "contact",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

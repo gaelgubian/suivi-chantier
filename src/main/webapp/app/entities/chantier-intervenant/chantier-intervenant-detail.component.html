@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="chantierIntervenant">
+            <h2><span>Chantier Intervenant</span> {{chantierIntervenant.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Corpmetier</span></dt>
+                <dd>
+                    <span>{{chantierIntervenant.corpmetier}}</span>
+                </dd>
+                <dt><span>Role</span></dt>
+                <dd>
+                    <span>{{chantierIntervenant.role}}</span>
+                </dd>
+                <dt><span>Contact</span></dt>
+                <dd>
+                    <div *ngIf="chantierIntervenant.contact">
+                        <a [routerLink]="['/contact', chantierIntervenant.contact?.id, 'view']">{{chantierIntervenant.contact?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Chantier</span></dt>
+                <dd>
+                    <div *ngIf="chantierIntervenant.chantier">
+                        <a [routerLink]="['/chantier', chantierIntervenant.chantier?.id, 'view']">{{chantierIntervenant.chantier?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/chantier-intervenant', chantierIntervenant.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

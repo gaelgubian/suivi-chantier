@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-adresse-heading">Create or edit a Adresse</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!adresse.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="adresse.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_numero">Numero</label>
+                    <input type="text" class="form-control" name="numero" id="field_numero"
+                        [(ngModel)]="adresse.numero" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_rue">Rue</label>
+                    <input type="text" class="form-control" name="rue" id="field_rue"
+                        [(ngModel)]="adresse.rue" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_complement">Complement</label>
+                    <input type="text" class="form-control" name="complement" id="field_complement"
+                        [(ngModel)]="adresse.complement" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_codepostal">Codepostal</label>
+                    <input type="number" class="form-control" name="codepostal" id="field_codepostal"
+                        [(ngModel)]="adresse.codepostal" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_ville">Ville</label>
+                    <input type="text" class="form-control" name="ville" id="field_ville"
+                        [(ngModel)]="adresse.ville" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_positionx">Positionx</label>
+                    <input type="text" class="form-control" name="positionx" id="field_positionx"
+                        [(ngModel)]="adresse.positionx" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_positiony">Positiony</label>
+                    <input type="text" class="form-control" name="positiony" id="field_positiony"
+                        [(ngModel)]="adresse.positiony" />
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-signature-heading">Create or edit a Signature</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!signature.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="signature.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_image">Image</label>
+                    <div>
+                        <img [src]="'data:' + signature.imageContentType + ';base64,' + signature.image" style="max-height: 100px;" *ngIf="signature.image" alt="signature image"/>
+                        <div *ngIf="signature.image" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{signature.imageContentType}}, {{byteSize(signature.image)}}</span>
+                            <button type="button" (click)="clearInputImage('image', 'imageContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_image" (change)="setFileData($event, signature, 'image', true)" accept="image/*"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="image" id="field_image"
+                        [(ngModel)]="signature.image" maxbytes="102400"/>
+                    <input type="hidden" class="form-control" name="imageContentType" id="field_imageContentType"
+                        [(ngModel)]="signature.imageContentType" />
+                    <div [hidden]="!(editForm.controls.image?.dirty && editForm.controls.image?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.image?.errors?.maxbytes">
+                            This field cannot be more than 102400.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_chantierIntervenant">Chantier Intervenant</label>
+                    <select class="form-control" id="field_chantierIntervenant" name="chantierIntervenant" [(ngModel)]="signature.chantierIntervenant">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="chantierIntervenantOption.id === signature.chantierIntervenant?.id ? signature.chantierIntervenant : chantierIntervenantOption" *ngFor="let chantierIntervenantOption of chantierintervenants; trackBy: trackChantierIntervenantById">{{chantierIntervenantOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_document">Document</label>
+                    <select class="form-control" id="field_document" name="document" [(ngModel)]="signature.document" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="documentOption.id === signature.document?.id ? signature.document : documentOption" *ngFor="let documentOption of documents; trackBy: trackDocumentById">{{documentOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_visite">Visite</label>
+                    <select class="form-control" id="field_visite" name="visite" [(ngModel)]="signature.visite" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="visiteOption.id === signature.visite?.id ? signature.visite : visiteOption" *ngFor="let visiteOption of visites; trackBy: trackVisiteById">{{visiteOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+{
+    "name": "Comment",
+    "fields": [
+        {
+            "fieldName": "label",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "comment",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "positionx",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "positiony",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "width",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "heigth",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "modified",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "echeance",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "image",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image",
+            "fieldValidateRules": [
+                "maxbytes"
+            ],
+            "fieldValidateRulesMaxbytes": 1024000
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "CommentType",
+            "fieldValues": "ADMINISTATIF,PLANS,ETUDE,AVANCEMENT,SECURITE,DIVERS"
+        },
+        {
+            "fieldName": "state",
+            "fieldType": "CommentState",
+            "fieldValues": "A_VERIFIER,A_CORRIGER,CORRIGE,VALIDE,ABANDONNE"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "icon",
+            "otherEntityName": "icon",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "visite",
+            "otherEntityName": "visite",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180926003003",
+    "entityTableName": "comment",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

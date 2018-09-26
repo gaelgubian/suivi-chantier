@@ -1,0 +1,36 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="icon">
+            <h2><span>Icon</span> {{icon.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Label</span></dt>
+                <dd>
+                    <span>{{icon.label}}</span>
+                </dd>
+                <dt><span>Image</span></dt>
+                <dd>
+                    <div *ngIf="icon.image">
+                        <a (click)="openFile(icon.imageContentType, icon.image)">
+                            <img [src]="'data:' + icon.imageContentType + ';base64,' + icon.image" style="max-width: 100%;" alt="icon image"/>
+                        </a>
+                        {{icon.imageContentType}}, {{byteSize(icon.image)}}
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/icon', icon.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

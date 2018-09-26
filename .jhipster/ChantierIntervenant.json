@@ -1,0 +1,47 @@
+{
+    "name": "ChantierIntervenant",
+    "fields": [
+        {
+            "fieldName": "corpmetier",
+            "fieldType": "Corpsmetier",
+            "fieldValues": "TERRASSEMENT,GROS_OEUVRE,MENUISERIE,ELECTRICITE,PLOMBERIE,CHAUFFAGE,CARRELAGE,PLATRE"
+        },
+        {
+            "fieldName": "role",
+            "fieldType": "Role",
+            "fieldValues": "MOA,MOE,ETUDE,CONTROLE"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "contact",
+            "otherEntityName": "contact",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "chantierIntervenant"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "signature",
+            "otherEntityName": "signature",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "chantierIntervenant"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "chantier",
+            "otherEntityName": "chantier",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180926002957",
+    "entityTableName": "chantier_intervenant",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

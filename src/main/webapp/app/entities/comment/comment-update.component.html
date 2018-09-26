@@ -1,0 +1,129 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-comment-heading">Create or edit a Comment</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!comment.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="comment.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_label">Label</label>
+                    <input type="text" class="form-control" name="label" id="field_label"
+                        [(ngModel)]="comment.label" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_comment">Comment</label>
+                    <input type="text" class="form-control" name="comment" id="field_comment"
+                        [(ngModel)]="comment.comment" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_positionx">Positionx</label>
+                    <input type="number" class="form-control" name="positionx" id="field_positionx"
+                        [(ngModel)]="comment.positionx" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_positiony">Positiony</label>
+                    <input type="number" class="form-control" name="positiony" id="field_positiony"
+                        [(ngModel)]="comment.positiony" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_width">Width</label>
+                    <input type="number" class="form-control" name="width" id="field_width"
+                        [(ngModel)]="comment.width" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_heigth">Heigth</label>
+                    <input type="number" class="form-control" name="heigth" id="field_heigth"
+                        [(ngModel)]="comment.heigth" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_modified">Modified</label>
+                    <div class="d-flex">
+                        <input id="field_modified" type="datetime-local" class="form-control" name="modified" [(ngModel)]="modified"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_echeance">Echeance</label>
+                    <div class="input-group">
+                        <input id="field_echeance" type="text" class="form-control" name="echeance" ngbDatepicker  #echeanceDp="ngbDatepicker" [(ngModel)]="comment.echeance"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="echeanceDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_image">Image</label>
+                    <div>
+                        <img [src]="'data:' + comment.imageContentType + ';base64,' + comment.image" style="max-height: 100px;" *ngIf="comment.image" alt="comment image"/>
+                        <div *ngIf="comment.image" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{comment.imageContentType}}, {{byteSize(comment.image)}}</span>
+                            <button type="button" (click)="clearInputImage('image', 'imageContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_image" (change)="setFileData($event, comment, 'image', true)" accept="image/*"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="image" id="field_image"
+                        [(ngModel)]="comment.image" maxbytes="1024000"/>
+                    <input type="hidden" class="form-control" name="imageContentType" id="field_imageContentType"
+                        [(ngModel)]="comment.imageContentType" />
+                    <div [hidden]="!(editForm.controls.image?.dirty && editForm.controls.image?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.image?.errors?.maxbytes">
+                            This field cannot be more than 1024000.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_type">Type</label>
+                    <select class="form-control" name="type" [(ngModel)]="comment.type" id="field_type" >
+                        <option value="ADMINISTATIF">ADMINISTATIF</option>
+                        <option value="PLANS">PLANS</option>
+                        <option value="ETUDE">ETUDE</option>
+                        <option value="AVANCEMENT">AVANCEMENT</option>
+                        <option value="SECURITE">SECURITE</option>
+                        <option value="DIVERS">DIVERS</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_state">State</label>
+                    <select class="form-control" name="state" [(ngModel)]="comment.state" id="field_state" >
+                        <option value="A_VERIFIER">A_VERIFIER</option>
+                        <option value="A_CORRIGER">A_CORRIGER</option>
+                        <option value="CORRIGE">CORRIGE</option>
+                        <option value="VALIDE">VALIDE</option>
+                        <option value="ABANDONNE">ABANDONNE</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_icon">Icon</label>
+                    <select class="form-control" id="field_icon" name="icon" [(ngModel)]="comment.icon" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="iconOption.id === comment.icon?.id ? comment.icon : iconOption" *ngFor="let iconOption of icons; trackBy: trackIconById">{{iconOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_visite">Visite</label>
+                    <select class="form-control" id="field_visite" name="visite" [(ngModel)]="comment.visite" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="visiteOption.id === comment.visite?.id ? comment.visite : visiteOption" *ngFor="let visiteOption of visites; trackBy: trackVisiteById">{{visiteOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

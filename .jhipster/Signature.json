@@ -1,0 +1,45 @@
+{
+    "name": "Signature",
+    "fields": [
+        {
+            "fieldName": "image",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image",
+            "fieldValidateRules": [
+                "maxbytes"
+            ],
+            "fieldValidateRulesMaxbytes": 102400
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "chantierIntervenant",
+            "otherEntityName": "chantierIntervenant",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "signature"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "document",
+            "otherEntityName": "document",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "visite",
+            "otherEntityName": "visite",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180926003002",
+    "entityTableName": "signature",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
