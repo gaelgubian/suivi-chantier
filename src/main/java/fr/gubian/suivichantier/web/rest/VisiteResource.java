@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -48,7 +49,7 @@ public class VisiteResource {
      */
     @PostMapping("/visites")
     @Timed
-    public ResponseEntity<Visite> createVisite(@RequestBody Visite visite) throws URISyntaxException {
+    public ResponseEntity<Visite> createVisite(@Valid @RequestBody Visite visite) throws URISyntaxException {
         log.debug("REST request to save Visite : {}", visite);
         if (visite.getId() != null) {
             throw new BadRequestAlertException("A new visite cannot already have an ID", ENTITY_NAME, "idexists");
@@ -70,7 +71,7 @@ public class VisiteResource {
      */
     @PutMapping("/visites")
     @Timed
-    public ResponseEntity<Visite> updateVisite(@RequestBody Visite visite) throws URISyntaxException {
+    public ResponseEntity<Visite> updateVisite(@Valid @RequestBody Visite visite) throws URISyntaxException {
         log.debug("REST request to update Visite : {}", visite);
         if (visite.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");

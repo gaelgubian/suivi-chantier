@@ -42,7 +42,7 @@ describe('DocumentTuile e2e test', () => {
 
         await documentTuileComponentsPage.clickOnCreateButton();
         await documentTuileUpdatePage.setContentInput(absolutePath);
-        await documentTuileUpdatePage.documentSelectLastOption();
+        await documentTuileUpdatePage.documentsSelectLastOption();
         await documentTuileUpdatePage.save();
         expect(await documentTuileUpdatePage.getSaveButton().isPresent()).to.be.false;
 

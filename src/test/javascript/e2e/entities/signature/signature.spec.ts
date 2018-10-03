@@ -43,7 +43,7 @@ describe('Signature e2e test', () => {
         await signatureComponentsPage.clickOnCreateButton();
         await signatureUpdatePage.setImageInput(absolutePath);
         await signatureUpdatePage.chantierIntervenantSelectLastOption();
-        await signatureUpdatePage.documentSelectLastOption();
+        await signatureUpdatePage.documentsSelectLastOption();
         await signatureUpdatePage.visiteSelectLastOption();
         await signatureUpdatePage.save();
         expect(await signatureUpdatePage.getSaveButton().isPresent()).to.be.false;

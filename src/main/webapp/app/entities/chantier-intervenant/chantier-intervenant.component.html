@@ -18,7 +18,7 @@
             <th jhiSortBy="corpmetier"><span>Corpmetier</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="role"><span>Role</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="contact.id"><span>Contact</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="chantier.id"><span>Chantier</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="chantier.label"><span>Chantier</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -34,7 +34,7 @@
                 </td>
                 <td>
                     <div *ngIf="chantierIntervenant.chantier">
-                        <a [routerLink]="['../chantier', chantierIntervenant.chantier?.id, 'view' ]" >{{chantierIntervenant.chantier?.id}}</a>
+                        <a [routerLink]="['../chantier', chantierIntervenant.chantier?.id, 'view' ]" >{{chantierIntervenant.chantier?.label}}</a>
                     </div>
                 </td>
                 <td class="text-right">

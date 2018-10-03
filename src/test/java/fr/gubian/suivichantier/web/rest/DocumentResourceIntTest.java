@@ -20,6 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -48,6 +49,14 @@ public class DocumentResourceIntTest {
 
     private static final String DEFAULT_PATH = "AAAAAAAAAA";
     private static final String UPDATED_PATH = "BBBBBBBBBB";
+
+    private static final String DEFAULT_FILENAME = "AAAAAAAAAA";
+    private static final String UPDATED_FILENAME = "BBBBBBBBBB";
+
+    private static final byte[] DEFAULT_CONTENT = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_CONTENT = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_CONTENT_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_CONTENT_CONTENT_TYPE = "image/png";
 
     @Autowired
     private DocumentRepository documentRepository;
@@ -92,7 +101,10 @@ public class DocumentResourceIntTest {
         Document document = new Document()
             .label(DEFAULT_LABEL)
             .description(DEFAULT_DESCRIPTION)
-            .path(DEFAULT_PATH);
+            .path(DEFAULT_PATH)
+            .filename(DEFAULT_FILENAME)
+            .content(DEFAULT_CONTENT)
+            .contentContentType(DEFAULT_CONTENT_CONTENT_TYPE);
         return document;
     }
 
@@ -119,6 +131,9 @@ public class DocumentResourceIntTest {
         assertThat(testDocument.getLabel()).isEqualTo(DEFAULT_LABEL);
         assertThat(testDocument.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testDocument.getPath()).isEqualTo(DEFAULT_PATH);
+        assertThat(testDocument.getFilename()).isEqualTo(DEFAULT_FILENAME);
+        assertThat(testDocument.getContent()).isEqualTo(DEFAULT_CONTENT);
+        assertThat(testDocument.getContentContentType()).isEqualTo(DEFAULT_CONTENT_CONTENT_TYPE);
     }
 
     @Test
@@ -171,7 +186,10 @@ public class DocumentResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(document.getId().intValue())))
             .andExpect(jsonPath("$.[*].label").value(hasItem(DEFAULT_LABEL.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].path").value(hasItem(DEFAULT_PATH.toString())));
+            .andExpect(jsonPath("$.[*].path").value(hasItem(DEFAULT_PATH.toString())))
+            .andExpect(jsonPath("$.[*].filename").value(hasItem(DEFAULT_FILENAME.toString())))
+            .andExpect(jsonPath("$.[*].contentContentType").value(hasItem(DEFAULT_CONTENT_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].content").value(hasItem(Base64Utils.encodeToString(DEFAULT_CONTENT))));
     }
     
     @Test
@@ -187,7 +205,10 @@ public class DocumentResourceIntTest {
             .andExpect(jsonPath("$.id").value(document.getId().intValue()))
             .andExpect(jsonPath("$.label").value(DEFAULT_LABEL.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.path").value(DEFAULT_PATH.toString()));
+            .andExpect(jsonPath("$.path").value(DEFAULT_PATH.toString()))
+            .andExpect(jsonPath("$.filename").value(DEFAULT_FILENAME.toString()))
+            .andExpect(jsonPath("$.contentContentType").value(DEFAULT_CONTENT_CONTENT_TYPE))
+            .andExpect(jsonPath("$.content").value(Base64Utils.encodeToString(DEFAULT_CONTENT)));
     }
 
     @Test
@@ -213,7 +234,10 @@ public class DocumentResourceIntTest {
         updatedDocument
             .label(UPDATED_LABEL)
             .description(UPDATED_DESCRIPTION)
-            .path(UPDATED_PATH);
+            .path(UPDATED_PATH)
+            .filename(UPDATED_FILENAME)
+            .content(UPDATED_CONTENT)
+            .contentContentType(UPDATED_CONTENT_CONTENT_TYPE);
 
         restDocumentMockMvc.perform(put("/api/documents")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -227,6 +251,9 @@ public class DocumentResourceIntTest {
         assertThat(testDocument.getLabel()).isEqualTo(UPDATED_LABEL);
         assertThat(testDocument.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testDocument.getPath()).isEqualTo(UPDATED_PATH);
+        assertThat(testDocument.getFilename()).isEqualTo(UPDATED_FILENAME);
+        assertThat(testDocument.getContent()).isEqualTo(UPDATED_CONTENT);
+        assertThat(testDocument.getContentContentType()).isEqualTo(UPDATED_CONTENT_CONTENT_TYPE);
     }
 
     @Test

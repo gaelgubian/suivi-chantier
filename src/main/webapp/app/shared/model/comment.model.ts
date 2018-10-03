@@ -1,6 +1,7 @@
 import { Moment } from 'moment';
 import { IIcon } from 'app/shared/model//icon.model';
 import { IVisite } from 'app/shared/model//visite.model';
+import { IDocument } from 'app/shared/model//document.model';
 
 export const enum CommentType {
     ADMINISTATIF = 'ADMINISTATIF',
@@ -8,6 +9,7 @@ export const enum CommentType {
     ETUDE = 'ETUDE',
     AVANCEMENT = 'AVANCEMENT',
     SECURITE = 'SECURITE',
+    NON_CONFORMITE = 'NON_CONFORMITE',
     DIVERS = 'DIVERS'
 }
 
@@ -35,6 +37,7 @@ export interface IComment {
     state?: CommentState;
     icon?: IIcon;
     visite?: IVisite;
+    documents?: IDocument;
 }
 
 export class Comment implements IComment {
@@ -53,6 +56,7 @@ export class Comment implements IComment {
         public type?: CommentType,
         public state?: CommentState,
         public icon?: IIcon,
-        public visite?: IVisite
+        public visite?: IVisite,
+        public documents?: IDocument
     ) {}
 }

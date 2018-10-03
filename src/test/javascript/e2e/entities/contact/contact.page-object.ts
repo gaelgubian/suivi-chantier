@@ -28,6 +28,7 @@ export class ContactUpdatePage {
     cancelButton = element(by.id('cancel-save'));
     labelInput = element(by.id('field_label'));
     loginInput = element(by.id('field_login'));
+    raisonsocialeInput = element(by.id('field_raisonsociale'));
     prenomInput = element(by.id('field_prenom'));
     nomInput = element(by.id('field_nom'));
     emailInput = element(by.id('field_email'));
@@ -37,7 +38,7 @@ export class ContactUpdatePage {
     descriptionInput = element(by.id('field_description'));
     posteInput = element(by.id('field_poste'));
     corpmetierSelect = element(by.id('field_corpmetier'));
-    adressecontactSelect = element(by.id('field_adressecontact'));
+    adresseSelect = element(by.id('field_adresse'));
 
     async getPageTitle() {
         return this.pageTitle.getText();
@@ -57,6 +58,14 @@ export class ContactUpdatePage {
 
     async getLoginInput() {
         return this.loginInput.getAttribute('value');
+    }
+
+    async setRaisonsocialeInput(raisonsociale) {
+        await this.raisonsocialeInput.sendKeys(raisonsociale);
+    }
+
+    async getRaisonsocialeInput() {
+        return this.raisonsocialeInput.getAttribute('value');
     }
 
     async setPrenomInput(prenom) {
@@ -138,23 +147,23 @@ export class ContactUpdatePage {
             .click();
     }
 
-    async adressecontactSelectLastOption() {
-        await this.adressecontactSelect
+    async adresseSelectLastOption() {
+        await this.adresseSelect
             .all(by.tagName('option'))
             .last()
             .click();
     }
 
-    async adressecontactSelectOption(option) {
-        await this.adressecontactSelect.sendKeys(option);
+    async adresseSelectOption(option) {
+        await this.adresseSelect.sendKeys(option);
     }
 
-    getAdressecontactSelect(): ElementFinder {
-        return this.adressecontactSelect;
+    getAdresseSelect(): ElementFinder {
+        return this.adresseSelect;
     }
 
-    async getAdressecontactSelectedOption() {
-        return this.adressecontactSelect.element(by.css('option:checked')).getText();
+    async getAdresseSelectedOption() {
+        return this.adresseSelect.element(by.css('option:checked')).getText();
     }
 
     async save() {

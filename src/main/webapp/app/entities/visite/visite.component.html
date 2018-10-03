@@ -16,9 +16,9 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="label"><span>Label</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="resume"><span>Resume</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="date"><span>Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="bien.id"><span>Bien</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="document.id"><span>Document</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="bien.label"><span>Bien</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -26,15 +26,11 @@
             <tr *ngFor="let visite of visites ;trackBy: trackId">
                 <td><a [routerLink]="['/visite', visite.id, 'view' ]">{{visite.id}}</a></td>
                 <td>{{visite.label}}</td>
+                <td>{{visite.resume}}</td>
                 <td>{{visite.date | date:'mediumDate'}}</td>
                 <td>
                     <div *ngIf="visite.bien">
-                        <a [routerLink]="['../bien', visite.bien?.id, 'view' ]" >{{visite.bien?.id}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="visite.document">
-                        <a [routerLink]="['../document', visite.document?.id, 'view' ]" >{{visite.document?.id}}</a>
+                        <a [routerLink]="['../bien', visite.bien?.id, 'view' ]" >{{visite.bien?.label}}</a>
                     </div>
                 </td>
                 <td class="text-right">

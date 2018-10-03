@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -27,25 +28,30 @@ public class Visite implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "jhi_label")
+    @NotNull
+    @Size(max = 256)
+    @Column(name = "jhi_label", length = 256, nullable = false)
     private String label;
+
+    @Size(max = 4000)
+    @Column(name = "resume", length = 4000)
+    private String resume;
 
     @Column(name = "jhi_date")
     private LocalDate date;
-
-    @ManyToOne
-    @JsonIgnoreProperties("visites")
-    private Bien bien;
-
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Document document;
 
     @OneToMany(mappedBy = "visite")
     private Set<Comment> comments = new HashSet<>();
 
     @OneToMany(mappedBy = "visite")
     private Set<Signature> signatures = new HashSet<>();
+
+    @OneToMany(mappedBy = "visite")
+    private Set<Document> supportsVisites = new HashSet<>();
+
+    @ManyToOne
+    @JsonIgnoreProperties("visites")
+    private Bien bien;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -69,6 +75,19 @@ public class Visite implements Serializable {
         this.label = label;
     }
 
+    public String getResume() {
+        return resume;
+    }
+
+    public Visite resume(String resume) {
+        this.resume = resume;
+        return this;
+    }
+
+    public void setResume(String resume) {
+        this.resume = resume;
+    }
+
     public LocalDate getDate() {
         return date;
     }
@@ -80,32 +99,6 @@ public class Visite implements Serializable {
 
     public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-    public Bien getBien() {
-        return bien;
-    }
-
-    public Visite bien(Bien bien) {
-        this.bien = bien;
-        return this;
-    }
-
-    public void setBien(Bien bien) {
-        this.bien = bien;
-    }
-
-    public Document getDocument() {
-        return document;
-    }
-
-    public Visite document(Document document) {
-        this.document = document;
-        return this;
-    }
-
-    public void setDocument(Document document) {
-        this.document = document;
     }
 
     public Set<Comment> getComments() {
@@ -142,13 +135,13 @@ public class Visite implements Serializable {
         return this;
     }
 
-    public Visite addSignature(Signature signature) {
+    public Visite addSignatures(Signature signature) {
         this.signatures.add(signature);
         signature.setVisite(this);
         return this;
     }
 
-    public Visite removeSignature(Signature signature) {
+    public Visite removeSignatures(Signature signature) {
         this.signatures.remove(signature);
         signature.setVisite(null);
         return this;
@@ -156,6 +149,44 @@ public class Visite implements Serializable {
 
     public void setSignatures(Set<Signature> signatures) {
         this.signatures = signatures;
+    }
+
+    public Set<Document> getSupportsVisites() {
+        return supportsVisites;
+    }
+
+    public Visite supportsVisites(Set<Document> documents) {
+        this.supportsVisites = documents;
+        return this;
+    }
+
+    public Visite addSupportsVisite(Document document) {
+        this.supportsVisites.add(document);
+        document.setVisite(this);
+        return this;
+    }
+
+    public Visite removeSupportsVisite(Document document) {
+        this.supportsVisites.remove(document);
+        document.setVisite(null);
+        return this;
+    }
+
+    public void setSupportsVisites(Set<Document> documents) {
+        this.supportsVisites = documents;
+    }
+
+    public Bien getBien() {
+        return bien;
+    }
+
+    public Visite bien(Bien bien) {
+        this.bien = bien;
+        return this;
+    }
+
+    public void setBien(Bien bien) {
+        this.bien = bien;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -184,6 +215,7 @@ public class Visite implements Serializable {
         return "Visite{" +
             "id=" + getId() +
             ", label='" + getLabel() + "'" +
+            ", resume='" + getResume() + "'" +
             ", date='" + getDate() + "'" +
             "}";
     }

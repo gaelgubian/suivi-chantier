@@ -27,7 +27,7 @@ export class DocumentTuileUpdatePage {
     saveButton = element(by.id('save-entity'));
     cancelButton = element(by.id('cancel-save'));
     contentInput = element(by.id('file_content'));
-    documentSelect = element(by.id('field_document'));
+    documentsSelect = element(by.id('field_documents'));
 
     async getPageTitle() {
         return this.pageTitle.getText();
@@ -41,23 +41,23 @@ export class DocumentTuileUpdatePage {
         return this.contentInput.getAttribute('value');
     }
 
-    async documentSelectLastOption() {
-        await this.documentSelect
+    async documentsSelectLastOption() {
+        await this.documentsSelect
             .all(by.tagName('option'))
             .last()
             .click();
     }
 
-    async documentSelectOption(option) {
-        await this.documentSelect.sendKeys(option);
+    async documentsSelectOption(option) {
+        await this.documentsSelect.sendKeys(option);
     }
 
-    getDocumentSelect(): ElementFinder {
-        return this.documentSelect;
+    getDocumentsSelect(): ElementFinder {
+        return this.documentsSelect;
     }
 
-    async getDocumentSelectedOption() {
-        return this.documentSelect.element(by.css('option:checked')).getText();
+    async getDocumentsSelectedOption() {
+        return this.documentsSelect.element(by.css('option:checked')).getText();
     }
 
     async save() {

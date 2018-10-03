@@ -3,38 +3,56 @@
     "fields": [
         {
             "fieldName": "label",
-            "fieldType": "String"
+            "javadoc": "Objet du commentaire",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 256
         },
         {
             "fieldName": "comment",
-            "fieldType": "String"
+            "javadoc": "Détail du commentaire",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 4000
         },
         {
             "fieldName": "positionx",
+            "javadoc": "Position (X) du commentaire lorsqu'il est lié à un document",
             "fieldType": "Integer"
         },
         {
             "fieldName": "positiony",
+            "javadoc": "Position (Y) du commentaire lorsqu'il est lié à un document",
             "fieldType": "Integer"
         },
         {
             "fieldName": "width",
+            "javadoc": "Largeur du commentaire lorsqu'il est lié à un document",
             "fieldType": "Integer"
         },
         {
             "fieldName": "heigth",
+            "javadoc": "Hauteur du commentaire lorsqu'il est lié à un document",
             "fieldType": "Integer"
         },
         {
             "fieldName": "modified",
+            "javadoc": "Date de dernière modification",
             "fieldType": "ZonedDateTime"
         },
         {
             "fieldName": "echeance",
+            "javadoc": "Echéance de résolution",
             "fieldType": "LocalDate"
         },
         {
             "fieldName": "image",
+            "javadoc": "Image illustrant le commentaire effectué. Par exemple une photo de l'anomalie évoquée dans le commentaire.",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image",
             "fieldValidateRules": [
@@ -44,11 +62,13 @@
         },
         {
             "fieldName": "type",
+            "javadoc": "Type de commentaire",
             "fieldType": "CommentType",
-            "fieldValues": "ADMINISTATIF,PLANS,ETUDE,AVANCEMENT,SECURITE,DIVERS"
+            "fieldValues": "ADMINISTATIF,PLANS,ETUDE,AVANCEMENT,SECURITE,NON_CONFORMITE,DIVERS"
         },
         {
             "fieldName": "state",
+            "javadoc": "Statut de l'avancement de la prise en compte du commentaire",
             "fieldType": "CommentState",
             "fieldValues": "A_VERIFIER,A_CORRIGER,CORRIGE,VALIDE,ABANDONNE"
         }
@@ -58,16 +78,23 @@
             "relationshipType": "many-to-one",
             "relationshipName": "icon",
             "otherEntityName": "icon",
-            "otherEntityField": "id"
+            "otherEntityField": "label"
         },
         {
+            "relationshipType": "many-to-one",
             "relationshipName": "visite",
             "otherEntityName": "visite",
+            "otherEntityField": "label"
+        },
+        {
             "relationshipType": "many-to-one",
-            "otherEntityField": "id"
+            "relationshipName": "documents",
+            "otherEntityName": "document",
+            "otherEntityField": "label"
         }
     ],
     "changelogDate": "20180926003003",
+    "javadoc": "Commentaire effectué lors d'une visite",
     "entityTableName": "comment",
     "dto": "no",
     "pagination": "pagination",

@@ -3,39 +3,70 @@
     "fields": [
         {
             "fieldName": "label",
+            "javadoc": "Nom du document",
             "fieldType": "String",
             "fieldValidateRules": [
-                "required"
-            ]
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 256
         },
         {
             "fieldName": "description",
-            "fieldType": "String"
+            "javadoc": "Détail sur le document, résumé, commentaires...",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 4000
         },
         {
             "fieldName": "path",
-            "fieldType": "String"
+            "javadoc": "Chemin d'accès complet au fichier sur le serveur. Dont le nom du fichier après renommage de sécurité",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 4000
+        },
+        {
+            "fieldName": "filename",
+            "javadoc": "nom du fichier original",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 512
+        },
+        {
+            "fieldName": "content",
+            "javadoc": "TODO : attribut à supprimer. Stocker le fichier sur le système, le convertir en images (tuiles)",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any",
+            "fieldValidateRules": [
+                "maxbytes"
+            ],
+            "fieldValidateRulesMaxbytes": 1024000
         }
     ],
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "signature",
+            "relationshipName": "signatures",
             "otherEntityName": "signature",
-            "otherEntityRelationshipName": "document"
+            "otherEntityRelationshipName": "documents"
         },
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "documentTuile",
+            "relationshipName": "tuiles",
             "otherEntityName": "documentTuile",
-            "otherEntityRelationshipName": "document"
+            "otherEntityRelationshipName": "documents"
         },
         {
-            "relationshipType": "one-to-one",
-            "relationshipName": "visite",
-            "otherEntityName": "visite",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "document"
+            "relationshipType": "one-to-many",
+            "relationshipName": "comments",
+            "otherEntityName": "comment",
+            "otherEntityRelationshipName": "documents"
         },
         {
             "relationshipType": "many-to-one",
@@ -48,9 +79,16 @@
             "relationshipName": "bien",
             "otherEntityName": "bien",
             "otherEntityField": "label"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "visite",
+            "otherEntityName": "visite",
+            "otherEntityField": "label"
         }
     ],
     "changelogDate": "20180926003000",
+    "javadoc": "Document",
     "entityTableName": "document",
     "dto": "no",
     "pagination": "pagination",

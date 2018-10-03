@@ -22,7 +22,6 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 
 /**
  * REST controller for managing Contact.
@@ -87,17 +86,11 @@ public class ContactResource {
      * GET  /contacts : get all the contacts.
      *
      * @param pageable the pagination information
-     * @param filter the filter of the request
      * @return the ResponseEntity with status 200 (OK) and the list of contacts in body
      */
     @GetMapping("/contacts")
     @Timed
-    public ResponseEntity<List<Contact>> getAllContacts(Pageable pageable, @RequestParam(required = false) String filter) {
-        if ("chantierintervenant-is-null".equals(filter)) {
-            log.debug("REST request to get all Contacts where chantierIntervenant is null");
-            return new ResponseEntity<>(contactService.findAllWhereChantierIntervenantIsNull(),
-                    HttpStatus.OK);
-        }
+    public ResponseEntity<List<Contact>> getAllContacts(Pageable pageable) {
         log.debug("REST request to get a page of Contacts");
         Page<Contact> page = contactService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/contacts");

@@ -2,6 +2,8 @@ package fr.gubian.suivichantier.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -12,8 +14,9 @@ import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Document.
+ * Document
  */
+@ApiModel(description = "Document")
 @Entity
 @Table(name = "document")
 public class Document implements Serializable {
@@ -25,25 +28,59 @@ public class Document implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
+    /**
+     * Nom du document
+     */
     @NotNull
-    @Column(name = "jhi_label", nullable = false)
+    @Size(max = 256)
+    @ApiModelProperty(value = "Nom du document", required = true)
+    @Column(name = "jhi_label", length = 256, nullable = false)
     private String label;
 
-    @Column(name = "description")
+    /**
+     * Détail sur le document, résumé, commentaires...
+     */
+    @Size(max = 4000)
+    @ApiModelProperty(value = "Détail sur le document, résumé, commentaires...")
+    @Column(name = "description", length = 4000)
     private String description;
 
-    @Column(name = "path")
+    /**
+     * Chemin d'accès complet au fichier sur le serveur. Dont le nom du fichier après renommage de sécurité
+     */
+    @Size(max = 4000)
+    @ApiModelProperty(value = "Chemin d'accès complet au fichier sur le serveur. Dont le nom du fichier après renommage de sécurité")
+    @Column(name = "path", length = 4000)
     private String path;
 
-    @OneToMany(mappedBy = "document")
+    /**
+     * nom du fichier original
+     */
+    @Size(max = 512)
+    @ApiModelProperty(value = "nom du fichier original")
+    @Column(name = "filename", length = 512)
+    private String filename;
+
+    /**
+     * TODO : attribut à supprimer. Stocker le fichier sur le système, le convertir en images (tuiles)
+     */
+    
+    @ApiModelProperty(value = "TODO : attribut à supprimer. Stocker le fichier sur le système, le convertir en images (tuiles)")
+    @Lob
+    @Column(name = "content")
+    private byte[] content;
+
+    @Column(name = "content_content_type")
+    private String contentContentType;
+
+    @OneToMany(mappedBy = "documents")
     private Set<Signature> signatures = new HashSet<>();
 
-    @OneToMany(mappedBy = "document")
-    private Set<DocumentTuile> documentTuiles = new HashSet<>();
+    @OneToMany(mappedBy = "documents")
+    private Set<DocumentTuile> tuiles = new HashSet<>();
 
-    @OneToOne(mappedBy = "document")
-    @JsonIgnore
-    private Visite visite;
+    @OneToMany(mappedBy = "documents")
+    private Set<Comment> comments = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties("documents")
@@ -52,6 +89,10 @@ public class Document implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("documents")
     private Bien bien;
+
+    @ManyToOne
+    @JsonIgnoreProperties("supportsVisites")
+    private Visite visite;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -101,6 +142,45 @@ public class Document implements Serializable {
         this.path = path;
     }
 
+    public String getFilename() {
+        return filename;
+    }
+
+    public Document filename(String filename) {
+        this.filename = filename;
+        return this;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public byte[] getContent() {
+        return content;
+    }
+
+    public Document content(byte[] content) {
+        this.content = content;
+        return this;
+    }
+
+    public void setContent(byte[] content) {
+        this.content = content;
+    }
+
+    public String getContentContentType() {
+        return contentContentType;
+    }
+
+    public Document contentContentType(String contentContentType) {
+        this.contentContentType = contentContentType;
+        return this;
+    }
+
+    public void setContentContentType(String contentContentType) {
+        this.contentContentType = contentContentType;
+    }
+
     public Set<Signature> getSignatures() {
         return signatures;
     }
@@ -110,15 +190,15 @@ public class Document implements Serializable {
         return this;
     }
 
-    public Document addSignature(Signature signature) {
+    public Document addSignatures(Signature signature) {
         this.signatures.add(signature);
-        signature.setDocument(this);
+        signature.setDocuments(this);
         return this;
     }
 
-    public Document removeSignature(Signature signature) {
+    public Document removeSignatures(Signature signature) {
         this.signatures.remove(signature);
-        signature.setDocument(null);
+        signature.setDocuments(null);
         return this;
     }
 
@@ -126,42 +206,54 @@ public class Document implements Serializable {
         this.signatures = signatures;
     }
 
-    public Set<DocumentTuile> getDocumentTuiles() {
-        return documentTuiles;
+    public Set<DocumentTuile> getTuiles() {
+        return tuiles;
     }
 
-    public Document documentTuiles(Set<DocumentTuile> documentTuiles) {
-        this.documentTuiles = documentTuiles;
+    public Document tuiles(Set<DocumentTuile> documentTuiles) {
+        this.tuiles = documentTuiles;
         return this;
     }
 
-    public Document addDocumentTuile(DocumentTuile documentTuile) {
-        this.documentTuiles.add(documentTuile);
-        documentTuile.setDocument(this);
+    public Document addTuiles(DocumentTuile documentTuile) {
+        this.tuiles.add(documentTuile);
+        documentTuile.setDocuments(this);
         return this;
     }
 
-    public Document removeDocumentTuile(DocumentTuile documentTuile) {
-        this.documentTuiles.remove(documentTuile);
-        documentTuile.setDocument(null);
+    public Document removeTuiles(DocumentTuile documentTuile) {
+        this.tuiles.remove(documentTuile);
+        documentTuile.setDocuments(null);
         return this;
     }
 
-    public void setDocumentTuiles(Set<DocumentTuile> documentTuiles) {
-        this.documentTuiles = documentTuiles;
+    public void setTuiles(Set<DocumentTuile> documentTuiles) {
+        this.tuiles = documentTuiles;
     }
 
-    public Visite getVisite() {
-        return visite;
+    public Set<Comment> getComments() {
+        return comments;
     }
 
-    public Document visite(Visite visite) {
-        this.visite = visite;
+    public Document comments(Set<Comment> comments) {
+        this.comments = comments;
         return this;
     }
 
-    public void setVisite(Visite visite) {
-        this.visite = visite;
+    public Document addComments(Comment comment) {
+        this.comments.add(comment);
+        comment.setDocuments(this);
+        return this;
+    }
+
+    public Document removeComments(Comment comment) {
+        this.comments.remove(comment);
+        comment.setDocuments(null);
+        return this;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 
     public Chantier getChantier() {
@@ -188,6 +280,19 @@ public class Document implements Serializable {
 
     public void setBien(Bien bien) {
         this.bien = bien;
+    }
+
+    public Visite getVisite() {
+        return visite;
+    }
+
+    public Document visite(Visite visite) {
+        this.visite = visite;
+        return this;
+    }
+
+    public void setVisite(Visite visite) {
+        this.visite = visite;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -218,6 +323,9 @@ public class Document implements Serializable {
             ", label='" + getLabel() + "'" +
             ", description='" + getDescription() + "'" +
             ", path='" + getPath() + "'" +
+            ", filename='" + getFilename() + "'" +
+            ", content='" + getContent() + "'" +
+            ", contentContentType='" + getContentContentType() + "'" +
             "}";
     }
 }

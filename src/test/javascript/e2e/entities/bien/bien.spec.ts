@@ -42,8 +42,8 @@ describe('Bien e2e test', () => {
         expect(await bienUpdatePage.getLabelInput()).to.eq('label');
         await bienUpdatePage.setDescriptionInput('description');
         expect(await bienUpdatePage.getDescriptionInput()).to.eq('description');
+        await bienUpdatePage.adresseBienSelectLastOption();
         await bienUpdatePage.chantierSelectLastOption();
-        await bienUpdatePage.adressechantierSelectLastOption();
         await bienUpdatePage.save();
         expect(await bienUpdatePage.getSaveButton().isPresent()).to.be.false;
 

@@ -8,9 +8,9 @@
     -->
     <changeSet id="20180926003001-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="document_id"
+        <addForeignKeyConstraint baseColumnNames="documents_id"
                                  baseTableName="document_tuile"
-                                 constraintName="fk_document_tuile_document_id"
+                                 constraintName="fk_document_tuile_documents_id"
                                  referencedColumnNames="id"
                                  referencedTableName="document"/>
 

@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { JhiAlertService } from 'ng-jhipster';
+import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { IDocument } from 'app/shared/model/document.model';
 import { DocumentService } from './document.service';
-import { IVisite } from 'app/shared/model/visite.model';
-import { VisiteService } from 'app/entities/visite';
 import { IChantier } from 'app/shared/model/chantier.model';
 import { ChantierService } from 'app/entities/chantier';
 import { IBien } from 'app/shared/model/bien.model';
 import { BienService } from 'app/entities/bien';
+import { IVisite } from 'app/shared/model/visite.model';
+import { VisiteService } from 'app/entities/visite';
 
 @Component({
     selector: 'jhi-document-update',
@@ -21,18 +21,19 @@ export class DocumentUpdateComponent implements OnInit {
     private _document: IDocument;
     isSaving: boolean;
 
-    visites: IVisite[];
-
     chantiers: IChantier[];
 
     biens: IBien[];
 
+    visites: IVisite[];
+
     constructor(
+        private dataUtils: JhiDataUtils,
         private jhiAlertService: JhiAlertService,
         private documentService: DocumentService,
-        private visiteService: VisiteService,
         private chantierService: ChantierService,
         private bienService: BienService,
+        private visiteService: VisiteService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -41,12 +42,6 @@ export class DocumentUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ document }) => {
             this.document = document;
         });
-        this.visiteService.query().subscribe(
-            (res: HttpResponse<IVisite[]>) => {
-                this.visites = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
         this.chantierService.query().subscribe(
             (res: HttpResponse<IChantier[]>) => {
                 this.chantiers = res.body;
@@ -59,6 +54,24 @@ export class DocumentUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+        this.visiteService.query().subscribe(
+            (res: HttpResponse<IVisite[]>) => {
+                this.visites = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+
+    byteSize(field) {
+        return this.dataUtils.byteSize(field);
+    }
+
+    openFile(contentType, field) {
+        return this.dataUtils.openFile(contentType, field);
+    }
+
+    setFileData(event, entity, field, isImage) {
+        this.dataUtils.setFileData(event, entity, field, isImage);
     }
 
     previousState() {
@@ -91,15 +104,15 @@ export class DocumentUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackVisiteById(index: number, item: IVisite) {
-        return item.id;
-    }
-
     trackChantierById(index: number, item: IChantier) {
         return item.id;
     }
 
     trackBienById(index: number, item: IBien) {
+        return item.id;
+    }
+
+    trackVisiteById(index: number, item: IVisite) {
         return item.id;
     }
     get document() {

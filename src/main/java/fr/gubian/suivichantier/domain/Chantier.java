@@ -2,6 +2,7 @@ package fr.gubian.suivichantier.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -13,16 +14,9 @@ import java.util.Set;
 import java.util.Objects;
 
 /**
- * application {
- * config {
- * baseName suivichantier,
- * nativeLanguage fr,
- * packageName fr.gubian.suivichantier,
- * prodDatabaseType postgresql
- * }
- * }
+ * Un chantier
  */
-@ApiModel(description = "application { config { baseName suivichantier, nativeLanguage fr, packageName fr.gubian.suivichantier, prodDatabaseType postgresql } }")
+@ApiModel(description = "Un chantier")
 @Entity
 @Table(name = "chantier")
 public class Chantier implements Serializable {
@@ -34,12 +28,20 @@ public class Chantier implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
+    /**
+     * Nom court du chantier permettant de faciliter les recherches
+     */
     @NotNull
     @Size(max = 64)
+    @ApiModelProperty(value = "Nom court du chantier permettant de faciliter les recherches", required = true)
     @Column(name = "jhi_label", length = 64, nullable = false)
     private String label;
 
+    /**
+     * Photo ou image représentant le chantier
+     */
     
+    @ApiModelProperty(value = "Photo ou image représentant le chantier")
     @Lob
     @Column(name = "image")
     private byte[] image;
@@ -47,12 +49,25 @@ public class Chantier implements Serializable {
     @Column(name = "image_content_type")
     private String imageContentType;
 
-    @Column(name = "description")
+    /**
+     * Description du chantier
+     */
+    @Size(max = 4000)
+    @ApiModelProperty(value = "Description du chantier")
+    @Column(name = "description", length = 4000)
     private String description;
 
+    /**
+     * Date de lancement du chantier
+     */
+    @ApiModelProperty(value = "Date de lancement du chantier")
     @Column(name = "date_debut")
     private LocalDate dateDebut;
 
+    /**
+     * Date de fin (prévisionnelle) du chantier
+     */
+    @ApiModelProperty(value = "Date de fin (prévisionnelle) du chantier")
     @Column(name = "date_fin")
     private LocalDate dateFin;
 
@@ -211,13 +226,13 @@ public class Chantier implements Serializable {
         return this;
     }
 
-    public Chantier addChantierIntervenant(ChantierIntervenant chantierIntervenant) {
+    public Chantier addChantierIntervenants(ChantierIntervenant chantierIntervenant) {
         this.chantierIntervenants.add(chantierIntervenant);
         chantierIntervenant.setChantier(this);
         return this;
     }
 
-    public Chantier removeChantierIntervenant(ChantierIntervenant chantierIntervenant) {
+    public Chantier removeChantierIntervenants(ChantierIntervenant chantierIntervenant) {
         this.chantierIntervenants.remove(chantierIntervenant);
         chantierIntervenant.setChantier(null);
         return this;

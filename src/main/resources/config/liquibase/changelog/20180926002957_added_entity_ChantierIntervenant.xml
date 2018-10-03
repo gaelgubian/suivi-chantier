@@ -17,7 +17,7 @@
         Added the entity ChantierIntervenant.
     -->
     <changeSet id="20180926002957-1" author="jhipster">
-        <createTable tableName="chantier_intervenant">
+        <createTable tableName="chantier_intervenant" remarks="Un intervenant sur un chantier particulier. Chaque chantier devrait au moins comporter une MOA et une MOE.">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>

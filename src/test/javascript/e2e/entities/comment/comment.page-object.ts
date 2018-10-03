@@ -39,6 +39,7 @@ export class CommentUpdatePage {
     stateSelect = element(by.id('field_state'));
     iconSelect = element(by.id('field_icon'));
     visiteSelect = element(by.id('field_visite'));
+    documentsSelect = element(by.id('field_documents'));
 
     async getPageTitle() {
         return this.pageTitle.getText();
@@ -182,6 +183,25 @@ export class CommentUpdatePage {
 
     async getVisiteSelectedOption() {
         return this.visiteSelect.element(by.css('option:checked')).getText();
+    }
+
+    async documentsSelectLastOption() {
+        await this.documentsSelect
+            .all(by.tagName('option'))
+            .last()
+            .click();
+    }
+
+    async documentsSelectOption(option) {
+        await this.documentsSelect.sendKeys(option);
+    }
+
+    getDocumentsSelect(): ElementFinder {
+        return this.documentsSelect;
+    }
+
+    async getDocumentsSelectedOption() {
+        return this.documentsSelect.element(by.css('option:checked')).getText();
     }
 
     async save() {

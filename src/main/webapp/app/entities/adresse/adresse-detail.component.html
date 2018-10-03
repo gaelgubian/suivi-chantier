@@ -5,15 +5,23 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span>Numero</span></dt>
+                <dt><span ngbTooltip="Numéro d&#39;appartement ou Boîte aux lettres, étage, couloir, escalier">Appartement</span></dt>
+                <dd>
+                    <span>{{adresse.appartement}}</span>
+                </dd>
+                <dt><span ngbTooltip="Entrée, batiment, immeuble, résidence, ZI">Entree</span></dt>
+                <dd>
+                    <span>{{adresse.entree}}</span>
+                </dd>
+                <dt><span ngbTooltip="Numéro de rue, dont éventuellement le complément bis, ter...">Numero</span></dt>
                 <dd>
                     <span>{{adresse.numero}}</span>
                 </dd>
-                <dt><span>Rue</span></dt>
+                <dt><span ngbTooltip="libellé de la voie">Voie</span></dt>
                 <dd>
-                    <span>{{adresse.rue}}</span>
+                    <span>{{adresse.voie}}</span>
                 </dd>
-                <dt><span>Complement</span></dt>
+                <dt><span ngbTooltip="Complément d&#39;adresse (lieu dit, service particulier de distribution, mention spéciale ou commune géographique)">Complement</span></dt>
                 <dd>
                     <span>{{adresse.complement}}</span>
                 </dd>
@@ -25,13 +33,13 @@
                 <dd>
                     <span>{{adresse.ville}}</span>
                 </dd>
-                <dt><span>Positionx</span></dt>
+                <dt><span ngbTooltip="position géographique (latitude)">Latitude</span></dt>
                 <dd>
-                    <span>{{adresse.positionx}}</span>
+                    <span>{{adresse.latitude}}</span>
                 </dd>
-                <dt><span>Positiony</span></dt>
+                <dt><span ngbTooltip="position géographique (longitude)">Longitude</span></dt>
                 <dd>
-                    <span>{{adresse.positiony}}</span>
+                    <span>{{adresse.longitude}}</span>
                 </dd>
             </dl>
 

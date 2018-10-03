@@ -14,9 +14,9 @@
                                  referencedColumnNames="id"
                                  referencedTableName="chantier_intervenant"/>
 
-        <addForeignKeyConstraint baseColumnNames="document_id"
+        <addForeignKeyConstraint baseColumnNames="documents_id"
                                  baseTableName="signature"
-                                 constraintName="fk_signature_document_id"
+                                 constraintName="fk_signature_documents_id"
                                  referencedColumnNames="id"
                                  referencedTableName="document"/>
 

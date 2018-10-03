@@ -1,6 +1,7 @@
 package fr.gubian.suivichantier.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModel;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -9,8 +10,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A Signature.
+ * image de la signature d'un document (saisie par stylet) par une personne
  */
+@ApiModel(description = "image de la signature d'un document (saisie par stylet) par une personne")
 @Entity
 @Table(name = "signature")
 public class Signature implements Serializable {
@@ -36,7 +38,7 @@ public class Signature implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties("signatures")
-    private Document document;
+    private Document documents;
 
     @ManyToOne
     @JsonIgnoreProperties("signatures")
@@ -90,17 +92,17 @@ public class Signature implements Serializable {
         this.chantierIntervenant = chantierIntervenant;
     }
 
-    public Document getDocument() {
-        return document;
+    public Document getDocuments() {
+        return documents;
     }
 
-    public Signature document(Document document) {
-        this.document = document;
+    public Signature documents(Document document) {
+        this.documents = document;
         return this;
     }
 
-    public void setDocument(Document document) {
-        this.document = document;
+    public void setDocuments(Document document) {
+        this.documents = document;
     }
 
     public Visite getVisite() {

@@ -3,11 +3,29 @@
     "fields": [
         {
             "fieldName": "label",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 256
         },
         {
             "fieldName": "login",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 256
+        },
+        {
+            "fieldName": "raisonsociale",
+            "javadoc": "Raison sociale ou dénomination",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 256
         },
         {
             "fieldName": "prenom",
@@ -35,23 +53,43 @@
         },
         {
             "fieldName": "telephoneMobile",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 20
         },
         {
             "fieldName": "telephone2",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 20
         },
         {
             "fieldName": "fax",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 20
         },
         {
             "fieldName": "description",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 4000
         },
         {
             "fieldName": "poste",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 256
         },
         {
             "fieldName": "corpmetier",
@@ -62,18 +100,11 @@
     "relationships": [
         {
             "relationshipType": "one-to-one",
-            "relationshipName": "adressecontact",
+            "relationshipName": "adresse",
             "otherEntityName": "adresse",
             "otherEntityField": "id",
             "ownerSide": true,
-            "otherEntityRelationshipName": "contact"
-        },
-        {
-            "relationshipType": "one-to-one",
-            "relationshipName": "chantierIntervenant",
-            "otherEntityName": "chantierIntervenant",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "contact"
+            "otherEntityRelationshipName": "contact(label)"
         }
     ],
     "changelogDate": "20180926003005",

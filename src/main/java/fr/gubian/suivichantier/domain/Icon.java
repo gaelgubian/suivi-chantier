@@ -1,5 +1,6 @@
 package fr.gubian.suivichantier.domain;
 
+import io.swagger.annotations.ApiModel;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -8,8 +9,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A Icon.
+ * Icon
  */
+@ApiModel(description = "Icon")
 @Entity
 @Table(name = "icon")
 public class Icon implements Serializable {
@@ -21,7 +23,9 @@ public class Icon implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "jhi_label")
+    @NotNull
+    @Size(max = 256)
+    @Column(name = "jhi_label", length = 256, nullable = false)
     private String label;
 
     

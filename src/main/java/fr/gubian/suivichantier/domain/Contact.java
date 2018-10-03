@@ -1,7 +1,7 @@
 package fr.gubian.suivichantier.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -26,11 +26,22 @@ public class Contact implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "jhi_label")
+    @NotNull
+    @Size(max = 256)
+    @Column(name = "jhi_label", length = 256, nullable = false)
     private String label;
 
-    @Column(name = "login")
+    @Size(max = 256)
+    @Column(name = "login", length = 256)
     private String login;
+
+    /**
+     * Raison sociale ou dénomination
+     */
+    @Size(max = 256)
+    @ApiModelProperty(value = "Raison sociale ou dénomination")
+    @Column(name = "raisonsociale", length = 256)
+    private String raisonsociale;
 
     @Size(max = 256)
     @Column(name = "prenom", length = 256)
@@ -44,19 +55,24 @@ public class Contact implements Serializable {
     @Column(name = "email", length = 256)
     private String email;
 
-    @Column(name = "telephone_mobile")
+    @Size(max = 20)
+    @Column(name = "telephone_mobile", length = 20)
     private String telephoneMobile;
 
-    @Column(name = "telephone_2")
+    @Size(max = 20)
+    @Column(name = "telephone_2", length = 20)
     private String telephone2;
 
-    @Column(name = "fax")
+    @Size(max = 20)
+    @Column(name = "fax", length = 20)
     private String fax;
 
-    @Column(name = "description")
+    @Size(max = 4000)
+    @Column(name = "description", length = 4000)
     private String description;
 
-    @Column(name = "poste")
+    @Size(max = 256)
+    @Column(name = "poste", length = 256)
     private String poste;
 
     @Enumerated(EnumType.STRING)
@@ -65,11 +81,7 @@ public class Contact implements Serializable {
 
     @OneToOne
     @JoinColumn(unique = true)
-    private Adresse adressecontact;
-
-    @OneToOne(mappedBy = "contact")
-    @JsonIgnore
-    private ChantierIntervenant chantierIntervenant;
+    private Adresse adresse;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -104,6 +116,19 @@ public class Contact implements Serializable {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getRaisonsociale() {
+        return raisonsociale;
+    }
+
+    public Contact raisonsociale(String raisonsociale) {
+        this.raisonsociale = raisonsociale;
+        return this;
+    }
+
+    public void setRaisonsociale(String raisonsociale) {
+        this.raisonsociale = raisonsociale;
     }
 
     public String getPrenom() {
@@ -223,30 +248,17 @@ public class Contact implements Serializable {
         this.corpmetier = corpmetier;
     }
 
-    public Adresse getAdressecontact() {
-        return adressecontact;
+    public Adresse getAdresse() {
+        return adresse;
     }
 
-    public Contact adressecontact(Adresse adresse) {
-        this.adressecontact = adresse;
+    public Contact adresse(Adresse adresse) {
+        this.adresse = adresse;
         return this;
     }
 
-    public void setAdressecontact(Adresse adresse) {
-        this.adressecontact = adresse;
-    }
-
-    public ChantierIntervenant getChantierIntervenant() {
-        return chantierIntervenant;
-    }
-
-    public Contact chantierIntervenant(ChantierIntervenant chantierIntervenant) {
-        this.chantierIntervenant = chantierIntervenant;
-        return this;
-    }
-
-    public void setChantierIntervenant(ChantierIntervenant chantierIntervenant) {
-        this.chantierIntervenant = chantierIntervenant;
+    public void setAdresse(Adresse adresse) {
+        this.adresse = adresse;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -276,6 +288,7 @@ public class Contact implements Serializable {
             "id=" + getId() +
             ", label='" + getLabel() + "'" +
             ", login='" + getLogin() + "'" +
+            ", raisonsociale='" + getRaisonsociale() + "'" +
             ", prenom='" + getPrenom() + "'" +
             ", nom='" + getNom() + "'" +
             ", email='" + getEmail() + "'" +

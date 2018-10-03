@@ -3,7 +3,12 @@
     "fields": [
         {
             "fieldName": "label",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 256
         },
         {
             "fieldName": "image",
@@ -17,6 +22,7 @@
     ],
     "relationships": [],
     "changelogDate": "20180926003004",
+    "javadoc": "Icon",
     "entityTableName": "icon",
     "dto": "no",
     "pagination": "pagination",

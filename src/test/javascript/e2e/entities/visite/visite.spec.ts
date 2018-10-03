@@ -40,10 +40,11 @@ describe('Visite e2e test', () => {
         await visiteComponentsPage.clickOnCreateButton();
         await visiteUpdatePage.setLabelInput('label');
         expect(await visiteUpdatePage.getLabelInput()).to.eq('label');
+        await visiteUpdatePage.setResumeInput('resume');
+        expect(await visiteUpdatePage.getResumeInput()).to.eq('resume');
         await visiteUpdatePage.setDateInput('2000-12-31');
         expect(await visiteUpdatePage.getDateInput()).to.eq('2000-12-31');
         await visiteUpdatePage.bienSelectLastOption();
-        await visiteUpdatePage.documentSelectLastOption();
         await visiteUpdatePage.save();
         expect(await visiteUpdatePage.getSaveButton().isPresent()).to.be.false;
 

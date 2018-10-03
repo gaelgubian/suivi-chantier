@@ -41,17 +41,17 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_document">Document</label>
-                    <select class="form-control" id="field_document" name="document" [(ngModel)]="signature.document" >
+                    <label class="form-control-label" for="field_documents">Documents</label>
+                    <select class="form-control" id="field_documents" name="documents" [(ngModel)]="signature.documents" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="documentOption.id === signature.document?.id ? signature.document : documentOption" *ngFor="let documentOption of documents; trackBy: trackDocumentById">{{documentOption.id}}</option>
+                        <option [ngValue]="documentOption.id === signature.documents?.id ? signature.documents : documentOption" *ngFor="let documentOption of documents; trackBy: trackDocumentById">{{documentOption.label}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_visite">Visite</label>
                     <select class="form-control" id="field_visite" name="visite" [(ngModel)]="signature.visite" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="visiteOption.id === signature.visite?.id ? signature.visite : visiteOption" *ngFor="let visiteOption of visites; trackBy: trackVisiteById">{{visiteOption.id}}</option>
+                        <option [ngValue]="visiteOption.id === signature.visite?.id ? signature.visite : visiteOption" *ngFor="let visiteOption of visites; trackBy: trackVisiteById">{{visiteOption.label}}</option>
                     </select>
                 </div>
             </div>

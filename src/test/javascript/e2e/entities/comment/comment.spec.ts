@@ -62,6 +62,7 @@ describe('Comment e2e test', () => {
         await commentUpdatePage.stateSelectLastOption();
         await commentUpdatePage.iconSelectLastOption();
         await commentUpdatePage.visiteSelectLastOption();
+        await commentUpdatePage.documentsSelectLastOption();
         await commentUpdatePage.save();
         expect(await commentUpdatePage.getSaveButton().isPresent()).to.be.false;
 

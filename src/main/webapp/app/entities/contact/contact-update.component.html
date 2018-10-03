@@ -12,12 +12,39 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_label">Label</label>
                     <input type="text" class="form-control" name="label" id="field_label"
-                        [(ngModel)]="contact.label" />
+                        [(ngModel)]="contact.label" required maxlength="256"/>
+                    <div [hidden]="!(editForm.controls.label?.dirty && editForm.controls.label?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.label?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.label?.errors?.maxlength">
+                        This field cannot be longer than 256 characters.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_login">Login</label>
                     <input type="text" class="form-control" name="login" id="field_login"
-                        [(ngModel)]="contact.login" />
+                        [(ngModel)]="contact.login" maxlength="256"/>
+                    <div [hidden]="!(editForm.controls.login?.dirty && editForm.controls.login?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.login?.errors?.maxlength">
+                        This field cannot be longer than 256 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_raisonsociale" ngbTooltip="Raison sociale ou dénomination">Raisonsociale</label>
+                    <input type="text" class="form-control" name="raisonsociale" id="field_raisonsociale"
+                        [(ngModel)]="contact.raisonsociale" maxlength="256"/>
+                    <div [hidden]="!(editForm.controls.raisonsociale?.dirty && editForm.controls.raisonsociale?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.raisonsociale?.errors?.maxlength">
+                        This field cannot be longer than 256 characters.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_prenom">Prenom</label>
@@ -55,27 +82,57 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_telephoneMobile">Telephone Mobile</label>
                     <input type="text" class="form-control" name="telephoneMobile" id="field_telephoneMobile"
-                        [(ngModel)]="contact.telephoneMobile" />
+                        [(ngModel)]="contact.telephoneMobile" maxlength="20"/>
+                    <div [hidden]="!(editForm.controls.telephoneMobile?.dirty && editForm.controls.telephoneMobile?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.telephoneMobile?.errors?.maxlength">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_telephone2">Telephone 2</label>
                     <input type="text" class="form-control" name="telephone2" id="field_telephone2"
-                        [(ngModel)]="contact.telephone2" />
+                        [(ngModel)]="contact.telephone2" maxlength="20"/>
+                    <div [hidden]="!(editForm.controls.telephone2?.dirty && editForm.controls.telephone2?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.telephone2?.errors?.maxlength">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_fax">Fax</label>
                     <input type="text" class="form-control" name="fax" id="field_fax"
-                        [(ngModel)]="contact.fax" />
+                        [(ngModel)]="contact.fax" maxlength="20"/>
+                    <div [hidden]="!(editForm.controls.fax?.dirty && editForm.controls.fax?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.fax?.errors?.maxlength">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_description">Description</label>
                     <input type="text" class="form-control" name="description" id="field_description"
-                        [(ngModel)]="contact.description" />
+                        [(ngModel)]="contact.description" maxlength="4000"/>
+                    <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.description?.errors?.maxlength">
+                        This field cannot be longer than 4000 characters.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_poste">Poste</label>
                     <input type="text" class="form-control" name="poste" id="field_poste"
-                        [(ngModel)]="contact.poste" />
+                        [(ngModel)]="contact.poste" maxlength="256"/>
+                    <div [hidden]="!(editForm.controls.poste?.dirty && editForm.controls.poste?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.poste?.errors?.maxlength">
+                        This field cannot be longer than 256 characters.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_corpmetier">Corpmetier</label>
@@ -92,10 +149,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="field_adressecontact">Adressecontact</label>
-                    <select class="form-control" id="field_adressecontact" name="adressecontact" [(ngModel)]="contact.adressecontact">
+                    <label class="form-control-label" for="field_adresse">Adresse</label>
+                    <select class="form-control" id="field_adresse" name="adresse" [(ngModel)]="contact.adresse">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="adresseOption.id === contact.adressecontact?.id ? contact.adressecontact : adresseOption" *ngFor="let adresseOption of adressecontacts; trackBy: trackAdresseById">{{adresseOption.id}}</option>
+                        <option [ngValue]="adresseOption.id === contact.adresse?.id ? contact.adresse : adresseOption" *ngFor="let adresseOption of adresses; trackBy: trackAdresseById">{{adresseOption.id}}</option>
                     </select>
                 </div>
             </div>

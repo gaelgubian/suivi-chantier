@@ -18,8 +18,11 @@
             <th jhiSortBy="label"><span>Label</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="description"><span>Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="path"><span>Path</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="filename"><span>Filename</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="content"><span>Content</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="chantier.label"><span>Chantier</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="bien.label"><span>Bien</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="visite.label"><span>Visite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -29,6 +32,11 @@
                 <td>{{document.label}}</td>
                 <td>{{document.description}}</td>
                 <td>{{document.path}}</td>
+                <td>{{document.filename}}</td>
+                <td>
+                    <a *ngIf="document.content" (click)="openFile(document.contentContentType, document.content)">open</a>
+                    <span *ngIf="document.content">{{document.contentContentType}}, {{byteSize(document.content)}}</span>
+                </td>
                 <td>
                     <div *ngIf="document.chantier">
                         <a [routerLink]="['../chantier', document.chantier?.id, 'view' ]" >{{document.chantier?.label}}</a>
@@ -37,6 +45,11 @@
                 <td>
                     <div *ngIf="document.bien">
                         <a [routerLink]="['../bien', document.bien?.id, 'view' ]" >{{document.bien?.label}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="document.visite">
+                        <a [routerLink]="['../visite', document.visite?.id, 'view' ]" >{{document.visite?.label}}</a>
                     </div>
                 </td>
                 <td class="text-right">

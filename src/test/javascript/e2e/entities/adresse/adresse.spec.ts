@@ -38,20 +38,24 @@ describe('Adresse e2e test', () => {
         const nbButtonsBeforeCreate = await adresseComponentsPage.countDeleteButtons();
 
         await adresseComponentsPage.clickOnCreateButton();
+        await adresseUpdatePage.setAppartementInput('appartement');
+        expect(await adresseUpdatePage.getAppartementInput()).to.eq('appartement');
+        await adresseUpdatePage.setEntreeInput('entree');
+        expect(await adresseUpdatePage.getEntreeInput()).to.eq('entree');
         await adresseUpdatePage.setNumeroInput('numero');
         expect(await adresseUpdatePage.getNumeroInput()).to.eq('numero');
-        await adresseUpdatePage.setRueInput('rue');
-        expect(await adresseUpdatePage.getRueInput()).to.eq('rue');
+        await adresseUpdatePage.setVoieInput('voie');
+        expect(await adresseUpdatePage.getVoieInput()).to.eq('voie');
         await adresseUpdatePage.setComplementInput('complement');
         expect(await adresseUpdatePage.getComplementInput()).to.eq('complement');
         await adresseUpdatePage.setCodepostalInput('5');
         expect(await adresseUpdatePage.getCodepostalInput()).to.eq('5');
         await adresseUpdatePage.setVilleInput('ville');
         expect(await adresseUpdatePage.getVilleInput()).to.eq('ville');
-        await adresseUpdatePage.setPositionxInput('positionx');
-        expect(await adresseUpdatePage.getPositionxInput()).to.eq('positionx');
-        await adresseUpdatePage.setPositionyInput('positiony');
-        expect(await adresseUpdatePage.getPositionyInput()).to.eq('positiony');
+        await adresseUpdatePage.setLatitudeInput('latitude');
+        expect(await adresseUpdatePage.getLatitudeInput()).to.eq('latitude');
+        await adresseUpdatePage.setLongitudeInput('longitude');
+        expect(await adresseUpdatePage.getLongitudeInput()).to.eq('longitude');
         await adresseUpdatePage.save();
         expect(await adresseUpdatePage.getSaveButton().isPresent()).to.be.false;
 

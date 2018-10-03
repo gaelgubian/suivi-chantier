@@ -14,10 +14,10 @@
                         {{documentTuile.contentContentType}}, {{byteSize(documentTuile.content)}}
                     </div>
                 </dd>
-                <dt><span>Document</span></dt>
+                <dt><span>Documents</span></dt>
                 <dd>
-                    <div *ngIf="documentTuile.document">
-                        <a [routerLink]="['/document', documentTuile.document?.id, 'view']">{{documentTuile.document?.id}}</a>
+                    <div *ngIf="documentTuile.documents">
+                        <a [routerLink]="['/document', documentTuile.documents?.id, 'view']">{{documentTuile.documents?.label}}</a>
                     </div>
                 </dd>
             </dl>

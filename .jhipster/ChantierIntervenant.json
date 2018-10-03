@@ -32,10 +32,11 @@
             "relationshipType": "many-to-one",
             "relationshipName": "chantier",
             "otherEntityName": "chantier",
-            "otherEntityField": "id"
+            "otherEntityField": "label"
         }
     ],
     "changelogDate": "20180926002957",
+    "javadoc": "Un intervenant sur un chantier particulier.\nChaque chantier devrait au moins comporter une MOA et une MOE.",
     "entityTableName": "chantier_intervenant",
     "dto": "no",
     "pagination": "pagination",

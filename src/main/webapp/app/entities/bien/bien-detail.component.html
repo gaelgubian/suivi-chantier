@@ -13,16 +13,16 @@
                 <dd>
                     <span>{{bien.description}}</span>
                 </dd>
+                <dt><span>Adresse Bien</span></dt>
+                <dd>
+                    <div *ngIf="bien.adresseBien">
+                        <a [routerLink]="['/adresse', bien.adresseBien?.id, 'view']">{{bien.adresseBien?.id}}</a>
+                    </div>
+                </dd>
                 <dt><span>Chantier</span></dt>
                 <dd>
                     <div *ngIf="bien.chantier">
-                        <a [routerLink]="['/chantier', bien.chantier?.id, 'view']">{{bien.chantier?.id}}</a>
-                    </div>
-                </dd>
-                <dt><span>Adressechantier</span></dt>
-                <dd>
-                    <div *ngIf="bien.adressechantier">
-                        <a [routerLink]="['/adresse', bien.adressechantier?.id, 'view']">{{bien.adressechantier?.id}}</a>
+                        <a [routerLink]="['/chantier', bien.chantier?.id, 'view']">{{bien.chantier?.label}}</a>
                     </div>
                 </dd>
             </dl>

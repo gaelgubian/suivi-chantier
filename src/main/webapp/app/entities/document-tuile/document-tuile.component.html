@@ -16,7 +16,7 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="content"><span>Content</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="document.id"><span>Document</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="documents.label"><span>Documents</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -30,8 +30,8 @@
                     <span *ngIf="documentTuile.content">{{documentTuile.contentContentType}}, {{byteSize(documentTuile.content)}}</span>
                 </td>
                 <td>
-                    <div *ngIf="documentTuile.document">
-                        <a [routerLink]="['../document', documentTuile.document?.id, 'view' ]" >{{documentTuile.document?.id}}</a>
+                    <div *ngIf="documentTuile.documents">
+                        <a [routerLink]="['../document', documentTuile.documents?.id, 'view' ]" >{{documentTuile.documents?.label}}</a>
                     </div>
                 </td>
                 <td class="text-right">

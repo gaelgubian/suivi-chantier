@@ -142,6 +142,24 @@ public class IconResourceIntTest {
 
     @Test
     @Transactional
+    public void checkLabelIsRequired() throws Exception {
+        int databaseSizeBeforeTest = iconRepository.findAll().size();
+        // set the field null
+        icon.setLabel(null);
+
+        // Create the Icon, which fails.
+
+        restIconMockMvc.perform(post("/api/icons")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(icon)))
+            .andExpect(status().isBadRequest());
+
+        List<Icon> iconList = iconRepository.findAll();
+        assertThat(iconList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllIcons() throws Exception {
         // Initialize the database
         iconRepository.saveAndFlush(icon);
