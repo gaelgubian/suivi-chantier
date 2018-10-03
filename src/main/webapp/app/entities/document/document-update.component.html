@@ -39,10 +39,10 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_chantier">Chantier</label>
-                    <select class="form-control" id="field_chantier" name="chantier" [(ngModel)]="document.chantier" >
+                    <label class="form-control-label" for="field_bien">Bien</label>
+                    <select class="form-control" id="field_bien" name="bien" [(ngModel)]="document.bien" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="bienOption.id === document.chantier?.id ? document.chantier : bienOption" *ngFor="let bienOption of biens; trackBy: trackBienById">{{bienOption.label}}</option>
+                        <option [ngValue]="bienOption.id === document.bien?.id ? document.bien : bienOption" *ngFor="let bienOption of biens; trackBy: trackBienById">{{bienOption.label}}</option>
                     </select>
                 </div>
             </div>

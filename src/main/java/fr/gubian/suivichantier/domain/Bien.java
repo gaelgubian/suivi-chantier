@@ -40,7 +40,7 @@ public class Bien implements Serializable {
     @JoinColumn(unique = true)
     private Adresse adressechantier;
 
-    @OneToMany(mappedBy = "chantier")
+    @OneToMany(mappedBy = "bien")
     private Set<Document> documents = new HashSet<>();
 
     @OneToMany(mappedBy = "bien")
@@ -118,13 +118,13 @@ public class Bien implements Serializable {
 
     public Bien addDocuments(Document document) {
         this.documents.add(document);
-        document.setChantier(this);
+        document.setBien(this);
         return this;
     }
 
     public Bien removeDocuments(Document document) {
         this.documents.remove(document);
-        document.setChantier(null);
+        document.setBien(null);
         return this;
     }
 

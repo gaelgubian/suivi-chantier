@@ -51,7 +51,7 @@ public class Document implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties("documents")
-    private Bien chantier;
+    private Bien bien;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -177,17 +177,17 @@ public class Document implements Serializable {
         this.chantier = chantier;
     }
 
-    public Bien getChantier() {
-        return chantier;
+    public Bien getBien() {
+        return bien;
     }
 
-    public Document chantier(Bien bien) {
-        this.chantier = bien;
+    public Document bien(Bien bien) {
+        this.bien = bien;
         return this;
     }
 
-    public void setChantier(Bien bien) {
-        this.chantier = bien;
+    public void setBien(Bien bien) {
+        this.bien = bien;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

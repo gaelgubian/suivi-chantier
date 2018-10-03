@@ -14,9 +14,9 @@
                                  referencedColumnNames="id"
                                  referencedTableName="chantier"/>
 
-        <addForeignKeyConstraint baseColumnNames="chantier_id"
+        <addForeignKeyConstraint baseColumnNames="bien_id"
                                  baseTableName="document"
-                                 constraintName="fk_document_chantier_id"
+                                 constraintName="fk_document_bien_id"
                                  referencedColumnNames="id"
                                  referencedTableName="bien"/>
 
