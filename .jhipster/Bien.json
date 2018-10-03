@@ -32,7 +32,7 @@
             "relationshipType": "one-to-many",
             "relationshipName": "documents",
             "otherEntityName": "document",
-            "otherEntityRelationshipName": "chantier"
+            "otherEntityRelationshipName": "bien"
         },
         {
             "relationshipType": "one-to-many",

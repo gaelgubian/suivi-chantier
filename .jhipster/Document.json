@@ -45,7 +45,7 @@
         },
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "chantier",
+            "relationshipName": "bien",
             "otherEntityName": "bien",
             "otherEntityField": "label"
         }

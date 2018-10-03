@@ -23,10 +23,10 @@
                         <a [routerLink]="['/chantier', document.chantier?.id, 'view']">{{document.chantier?.label}}</a>
                     </div>
                 </dd>
-                <dt><span>Chantier</span></dt>
+                <dt><span>Bien</span></dt>
                 <dd>
-                    <div *ngIf="document.chantier">
-                        <a [routerLink]="['/bien', document.chantier?.id, 'view']">{{document.chantier?.label}}</a>
+                    <div *ngIf="document.bien">
+                        <a [routerLink]="['/bien', document.bien?.id, 'view']">{{document.bien?.label}}</a>
                     </div>
                 </dd>
             </dl>

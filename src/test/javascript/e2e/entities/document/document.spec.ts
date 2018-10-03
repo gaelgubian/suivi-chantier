@@ -45,7 +45,7 @@ describe('Document e2e test', () => {
         await documentUpdatePage.setPathInput('path');
         expect(await documentUpdatePage.getPathInput()).to.eq('path');
         await documentUpdatePage.chantierSelectLastOption();
-        await documentUpdatePage.chantierSelectLastOption();
+        await documentUpdatePage.bienSelectLastOption();
         await documentUpdatePage.save();
         expect(await documentUpdatePage.getSaveButton().isPresent()).to.be.false;
 

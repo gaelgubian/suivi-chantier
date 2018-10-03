@@ -13,7 +13,7 @@ export interface IDocument {
     documentTuiles?: IDocumentTuile[];
     visite?: IVisite;
     chantier?: IChantier;
-    chantier?: IBien;
+    bien?: IBien;
 }
 
 export class Document implements IDocument {
@@ -26,6 +26,6 @@ export class Document implements IDocument {
         public documentTuiles?: IDocumentTuile[],
         public visite?: IVisite,
         public chantier?: IChantier,
-        public chantier?: IBien
+        public bien?: IBien
     ) {}
 }

@@ -30,7 +30,7 @@ export class DocumentUpdatePage {
     descriptionInput = element(by.id('field_description'));
     pathInput = element(by.id('field_path'));
     chantierSelect = element(by.id('field_chantier'));
-    chantierSelect = element(by.id('field_chantier'));
+    bienSelect = element(by.id('field_bien'));
 
     async getPageTitle() {
         return this.pageTitle.getText();
@@ -79,23 +79,23 @@ export class DocumentUpdatePage {
         return this.chantierSelect.element(by.css('option:checked')).getText();
     }
 
-    async chantierSelectLastOption() {
-        await this.chantierSelect
+    async bienSelectLastOption() {
+        await this.bienSelect
             .all(by.tagName('option'))
             .last()
             .click();
     }
 
-    async chantierSelectOption(option) {
-        await this.chantierSelect.sendKeys(option);
+    async bienSelectOption(option) {
+        await this.bienSelect.sendKeys(option);
     }
 
-    getChantierSelect(): ElementFinder {
-        return this.chantierSelect;
+    getBienSelect(): ElementFinder {
+        return this.bienSelect;
     }
 
-    async getChantierSelectedOption() {
-        return this.chantierSelect.element(by.css('option:checked')).getText();
+    async getBienSelectedOption() {
+        return this.bienSelect.element(by.css('option:checked')).getText();
     }
 
     async save() {

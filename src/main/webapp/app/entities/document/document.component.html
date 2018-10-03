@@ -19,7 +19,7 @@
             <th jhiSortBy="description"><span>Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="path"><span>Path</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="chantier.label"><span>Chantier</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="chantier.label"><span>Chantier</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="bien.label"><span>Bien</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -35,8 +35,8 @@
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="document.chantier">
-                        <a [routerLink]="['../bien', document.chantier?.id, 'view' ]" >{{document.chantier?.label}}</a>
+                    <div *ngIf="document.bien">
+                        <a [routerLink]="['../bien', document.bien?.id, 'view' ]" >{{document.bien?.label}}</a>
                     </div>
                 </td>
                 <td class="text-right">
