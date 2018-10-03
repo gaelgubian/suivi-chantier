@@ -47,6 +47,9 @@ public class ContactResourceIntTest {
     private static final String DEFAULT_LOGIN = "AAAAAAAAAA";
     private static final String UPDATED_LOGIN = "BBBBBBBBBB";
 
+    private static final String DEFAULT_RAISONSOCIALE = "AAAAAAAAAA";
+    private static final String UPDATED_RAISONSOCIALE = "BBBBBBBBBB";
+
     private static final String DEFAULT_PRENOM = "AAAAAAAAAA";
     private static final String UPDATED_PRENOM = "BBBBBBBBBB";
 
@@ -117,6 +120,7 @@ public class ContactResourceIntTest {
         Contact contact = new Contact()
             .label(DEFAULT_LABEL)
             .login(DEFAULT_LOGIN)
+            .raisonsociale(DEFAULT_RAISONSOCIALE)
             .prenom(DEFAULT_PRENOM)
             .nom(DEFAULT_NOM)
             .email(DEFAULT_EMAIL)
@@ -151,6 +155,7 @@ public class ContactResourceIntTest {
         Contact testContact = contactList.get(contactList.size() - 1);
         assertThat(testContact.getLabel()).isEqualTo(DEFAULT_LABEL);
         assertThat(testContact.getLogin()).isEqualTo(DEFAULT_LOGIN);
+        assertThat(testContact.getRaisonsociale()).isEqualTo(DEFAULT_RAISONSOCIALE);
         assertThat(testContact.getPrenom()).isEqualTo(DEFAULT_PRENOM);
         assertThat(testContact.getNom()).isEqualTo(DEFAULT_NOM);
         assertThat(testContact.getEmail()).isEqualTo(DEFAULT_EMAIL);
@@ -183,6 +188,24 @@ public class ContactResourceIntTest {
 
     @Test
     @Transactional
+    public void checkLabelIsRequired() throws Exception {
+        int databaseSizeBeforeTest = contactRepository.findAll().size();
+        // set the field null
+        contact.setLabel(null);
+
+        // Create the Contact, which fails.
+
+        restContactMockMvc.perform(post("/api/contacts")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(contact)))
+            .andExpect(status().isBadRequest());
+
+        List<Contact> contactList = contactRepository.findAll();
+        assertThat(contactList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllContacts() throws Exception {
         // Initialize the database
         contactRepository.saveAndFlush(contact);
@@ -194,6 +217,7 @@ public class ContactResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(contact.getId().intValue())))
             .andExpect(jsonPath("$.[*].label").value(hasItem(DEFAULT_LABEL.toString())))
             .andExpect(jsonPath("$.[*].login").value(hasItem(DEFAULT_LOGIN.toString())))
+            .andExpect(jsonPath("$.[*].raisonsociale").value(hasItem(DEFAULT_RAISONSOCIALE.toString())))
             .andExpect(jsonPath("$.[*].prenom").value(hasItem(DEFAULT_PRENOM.toString())))
             .andExpect(jsonPath("$.[*].nom").value(hasItem(DEFAULT_NOM.toString())))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
@@ -218,6 +242,7 @@ public class ContactResourceIntTest {
             .andExpect(jsonPath("$.id").value(contact.getId().intValue()))
             .andExpect(jsonPath("$.label").value(DEFAULT_LABEL.toString()))
             .andExpect(jsonPath("$.login").value(DEFAULT_LOGIN.toString()))
+            .andExpect(jsonPath("$.raisonsociale").value(DEFAULT_RAISONSOCIALE.toString()))
             .andExpect(jsonPath("$.prenom").value(DEFAULT_PRENOM.toString()))
             .andExpect(jsonPath("$.nom").value(DEFAULT_NOM.toString()))
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
@@ -252,6 +277,7 @@ public class ContactResourceIntTest {
         updatedContact
             .label(UPDATED_LABEL)
             .login(UPDATED_LOGIN)
+            .raisonsociale(UPDATED_RAISONSOCIALE)
             .prenom(UPDATED_PRENOM)
             .nom(UPDATED_NOM)
             .email(UPDATED_EMAIL)
@@ -273,6 +299,7 @@ public class ContactResourceIntTest {
         Contact testContact = contactList.get(contactList.size() - 1);
         assertThat(testContact.getLabel()).isEqualTo(UPDATED_LABEL);
         assertThat(testContact.getLogin()).isEqualTo(UPDATED_LOGIN);
+        assertThat(testContact.getRaisonsociale()).isEqualTo(UPDATED_RAISONSOCIALE);
         assertThat(testContact.getPrenom()).isEqualTo(UPDATED_PRENOM);
         assertThat(testContact.getNom()).isEqualTo(UPDATED_NOM);
         assertThat(testContact.getEmail()).isEqualTo(UPDATED_EMAIL);

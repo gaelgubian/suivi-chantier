@@ -2,6 +2,7 @@ package fr.gubian.suivichantier.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModel;
 
 import javax.persistence.*;
 
@@ -13,8 +14,10 @@ import fr.gubian.suivichantier.domain.enumeration.Corpsmetier;
 import fr.gubian.suivichantier.domain.enumeration.Role;
 
 /**
- * A ChantierIntervenant.
+ * Un intervenant sur un chantier particulier.
+ * Chaque chantier devrait au moins comporter une MOA et une MOE.
  */
+@ApiModel(description = "Un intervenant sur un chantier particulier. Chaque chantier devrait au moins comporter une MOA et une MOE.")
 @Entity
 @Table(name = "chantier_intervenant")
 public class ChantierIntervenant implements Serializable {

@@ -6,10 +6,10 @@ import { JhiAlertService } from 'ng-jhipster';
 
 import { IBien } from 'app/shared/model/bien.model';
 import { BienService } from './bien.service';
-import { IChantier } from 'app/shared/model/chantier.model';
-import { ChantierService } from 'app/entities/chantier';
 import { IAdresse } from 'app/shared/model/adresse.model';
 import { AdresseService } from 'app/entities/adresse';
+import { IChantier } from 'app/shared/model/chantier.model';
+import { ChantierService } from 'app/entities/chantier';
 
 @Component({
     selector: 'jhi-bien-update',
@@ -19,15 +19,15 @@ export class BienUpdateComponent implements OnInit {
     private _bien: IBien;
     isSaving: boolean;
 
-    chantiers: IChantier[];
+    adressebiens: IAdresse[];
 
-    adressechantiers: IAdresse[];
+    chantiers: IChantier[];
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private bienService: BienService,
-        private chantierService: ChantierService,
         private adresseService: AdresseService,
+        private chantierService: ChantierService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -36,24 +36,24 @@ export class BienUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ bien }) => {
             this.bien = bien;
         });
-        this.chantierService.query().subscribe(
-            (res: HttpResponse<IChantier[]>) => {
-                this.chantiers = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.adresseService.query({ filter: 'bien-is-null' }).subscribe(
+        this.adresseService.query({ filter: 'bien(label)-is-null' }).subscribe(
             (res: HttpResponse<IAdresse[]>) => {
-                if (!this.bien.adressechantier || !this.bien.adressechantier.id) {
-                    this.adressechantiers = res.body;
+                if (!this.bien.adresseBien || !this.bien.adresseBien.id) {
+                    this.adressebiens = res.body;
                 } else {
-                    this.adresseService.find(this.bien.adressechantier.id).subscribe(
+                    this.adresseService.find(this.bien.adresseBien.id).subscribe(
                         (subRes: HttpResponse<IAdresse>) => {
-                            this.adressechantiers = [subRes.body].concat(res.body);
+                            this.adressebiens = [subRes.body].concat(res.body);
                         },
                         (subRes: HttpErrorResponse) => this.onError(subRes.message)
                     );
                 }
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.chantierService.query().subscribe(
+            (res: HttpResponse<IChantier[]>) => {
+                this.chantiers = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -89,11 +89,11 @@ export class BienUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackChantierById(index: number, item: IChantier) {
+    trackAdresseById(index: number, item: IAdresse) {
         return item.id;
     }
 
-    trackAdresseById(index: number, item: IAdresse) {
+    trackChantierById(index: number, item: IChantier) {
         return item.id;
     }
     get bien() {

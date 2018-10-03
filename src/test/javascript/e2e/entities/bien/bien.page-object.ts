@@ -28,8 +28,8 @@ export class BienUpdatePage {
     cancelButton = element(by.id('cancel-save'));
     labelInput = element(by.id('field_label'));
     descriptionInput = element(by.id('field_description'));
+    adresseBienSelect = element(by.id('field_adresseBien'));
     chantierSelect = element(by.id('field_chantier'));
-    adressechantierSelect = element(by.id('field_adressechantier'));
 
     async getPageTitle() {
         return this.pageTitle.getText();
@@ -51,6 +51,25 @@ export class BienUpdatePage {
         return this.descriptionInput.getAttribute('value');
     }
 
+    async adresseBienSelectLastOption() {
+        await this.adresseBienSelect
+            .all(by.tagName('option'))
+            .last()
+            .click();
+    }
+
+    async adresseBienSelectOption(option) {
+        await this.adresseBienSelect.sendKeys(option);
+    }
+
+    getAdresseBienSelect(): ElementFinder {
+        return this.adresseBienSelect;
+    }
+
+    async getAdresseBienSelectedOption() {
+        return this.adresseBienSelect.element(by.css('option:checked')).getText();
+    }
+
     async chantierSelectLastOption() {
         await this.chantierSelect
             .all(by.tagName('option'))
@@ -68,25 +87,6 @@ export class BienUpdatePage {
 
     async getChantierSelectedOption() {
         return this.chantierSelect.element(by.css('option:checked')).getText();
-    }
-
-    async adressechantierSelectLastOption() {
-        await this.adressechantierSelect
-            .all(by.tagName('option'))
-            .last()
-            .click();
-    }
-
-    async adressechantierSelectOption(option) {
-        await this.adressechantierSelect.sendKeys(option);
-    }
-
-    getAdressechantierSelect(): ElementFinder {
-        return this.adressechantierSelect;
-    }
-
-    async getAdressechantierSelectedOption() {
-        return this.adressechantierSelect.element(by.css('option:checked')).getText();
     }
 
     async save() {

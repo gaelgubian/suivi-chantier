@@ -5,39 +5,39 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span>Label</span></dt>
+                <dt><span ngbTooltip="Objet du commentaire">Label</span></dt>
                 <dd>
                     <span>{{comment.label}}</span>
                 </dd>
-                <dt><span>Comment</span></dt>
+                <dt><span ngbTooltip="Détail du commentaire">Comment</span></dt>
                 <dd>
                     <span>{{comment.comment}}</span>
                 </dd>
-                <dt><span>Positionx</span></dt>
+                <dt><span ngbTooltip="Position (X) du commentaire lorsqu&#39;il est lié à un document">Positionx</span></dt>
                 <dd>
                     <span>{{comment.positionx}}</span>
                 </dd>
-                <dt><span>Positiony</span></dt>
+                <dt><span ngbTooltip="Position (Y) du commentaire lorsqu&#39;il est lié à un document">Positiony</span></dt>
                 <dd>
                     <span>{{comment.positiony}}</span>
                 </dd>
-                <dt><span>Width</span></dt>
+                <dt><span ngbTooltip="Largeur du commentaire lorsqu&#39;il est lié à un document">Width</span></dt>
                 <dd>
                     <span>{{comment.width}}</span>
                 </dd>
-                <dt><span>Heigth</span></dt>
+                <dt><span ngbTooltip="Hauteur du commentaire lorsqu&#39;il est lié à un document">Heigth</span></dt>
                 <dd>
                     <span>{{comment.heigth}}</span>
                 </dd>
-                <dt><span>Modified</span></dt>
+                <dt><span ngbTooltip="Date de dernière modification">Modified</span></dt>
                 <dd>
                     <span>{{comment.modified}}</span>
                 </dd>
-                <dt><span>Echeance</span></dt>
+                <dt><span ngbTooltip="Echéance de résolution">Echeance</span></dt>
                 <dd>
                     <span>{{comment.echeance}}</span>
                 </dd>
-                <dt><span>Image</span></dt>
+                <dt><span ngbTooltip="Image illustrant le commentaire effectué. Par exemple une photo de l&#39;anomalie évoquée dans le commentaire.">Image</span></dt>
                 <dd>
                     <div *ngIf="comment.image">
                         <a (click)="openFile(comment.imageContentType, comment.image)">
@@ -46,24 +46,30 @@
                         {{comment.imageContentType}}, {{byteSize(comment.image)}}
                     </div>
                 </dd>
-                <dt><span>Type</span></dt>
+                <dt><span ngbTooltip="Type de commentaire">Type</span></dt>
                 <dd>
                     <span>{{comment.type}}</span>
                 </dd>
-                <dt><span>State</span></dt>
+                <dt><span ngbTooltip="Statut de l&#39;avancement de la prise en compte du commentaire">State</span></dt>
                 <dd>
                     <span>{{comment.state}}</span>
                 </dd>
                 <dt><span>Icon</span></dt>
                 <dd>
                     <div *ngIf="comment.icon">
-                        <a [routerLink]="['/icon', comment.icon?.id, 'view']">{{comment.icon?.id}}</a>
+                        <a [routerLink]="['/icon', comment.icon?.id, 'view']">{{comment.icon?.label}}</a>
                     </div>
                 </dd>
                 <dt><span>Visite</span></dt>
                 <dd>
                     <div *ngIf="comment.visite">
-                        <a [routerLink]="['/visite', comment.visite?.id, 'view']">{{comment.visite?.id}}</a>
+                        <a [routerLink]="['/visite', comment.visite?.id, 'view']">{{comment.visite?.label}}</a>
+                    </div>
+                </dd>
+                <dt><span>Documents</span></dt>
+                <dd>
+                    <div *ngIf="comment.documents">
+                        <a [routerLink]="['/document', comment.documents?.id, 'view']">{{comment.documents?.label}}</a>
                     </div>
                 </dd>
             </dl>

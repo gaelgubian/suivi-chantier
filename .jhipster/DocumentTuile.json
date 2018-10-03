@@ -14,12 +14,13 @@
     "relationships": [
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "document",
+            "relationshipName": "documents",
             "otherEntityName": "document",
-            "otherEntityField": "id"
+            "otherEntityField": "label"
         }
     ],
     "changelogDate": "20180926003001",
+    "javadoc": "Tuile (partie d'un document sous forme d'image)",
     "entityTableName": "document_tuile",
     "dto": "no",
     "pagination": "pagination",

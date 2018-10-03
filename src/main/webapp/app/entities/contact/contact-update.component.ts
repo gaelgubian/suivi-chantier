@@ -8,8 +8,6 @@ import { IContact } from 'app/shared/model/contact.model';
 import { ContactService } from './contact.service';
 import { IAdresse } from 'app/shared/model/adresse.model';
 import { AdresseService } from 'app/entities/adresse';
-import { IChantierIntervenant } from 'app/shared/model/chantier-intervenant.model';
-import { ChantierIntervenantService } from 'app/entities/chantier-intervenant';
 
 @Component({
     selector: 'jhi-contact-update',
@@ -19,15 +17,12 @@ export class ContactUpdateComponent implements OnInit {
     private _contact: IContact;
     isSaving: boolean;
 
-    adressecontacts: IAdresse[];
-
-    chantierintervenants: IChantierIntervenant[];
+    adresses: IAdresse[];
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private contactService: ContactService,
         private adresseService: AdresseService,
-        private chantierIntervenantService: ChantierIntervenantService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -36,24 +31,18 @@ export class ContactUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ contact }) => {
             this.contact = contact;
         });
-        this.adresseService.query({ filter: 'contact-is-null' }).subscribe(
+        this.adresseService.query({ filter: 'contact(label)-is-null' }).subscribe(
             (res: HttpResponse<IAdresse[]>) => {
-                if (!this.contact.adressecontact || !this.contact.adressecontact.id) {
-                    this.adressecontacts = res.body;
+                if (!this.contact.adresse || !this.contact.adresse.id) {
+                    this.adresses = res.body;
                 } else {
-                    this.adresseService.find(this.contact.adressecontact.id).subscribe(
+                    this.adresseService.find(this.contact.adresse.id).subscribe(
                         (subRes: HttpResponse<IAdresse>) => {
-                            this.adressecontacts = [subRes.body].concat(res.body);
+                            this.adresses = [subRes.body].concat(res.body);
                         },
                         (subRes: HttpErrorResponse) => this.onError(subRes.message)
                     );
                 }
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.chantierIntervenantService.query().subscribe(
-            (res: HttpResponse<IChantierIntervenant[]>) => {
-                this.chantierintervenants = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -90,10 +79,6 @@ export class ContactUpdateComponent implements OnInit {
     }
 
     trackAdresseById(index: number, item: IAdresse) {
-        return item.id;
-    }
-
-    trackChantierIntervenantById(index: number, item: IChantierIntervenant) {
         return item.id;
     }
     get contact() {

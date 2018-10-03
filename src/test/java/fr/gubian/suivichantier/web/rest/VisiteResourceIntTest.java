@@ -45,6 +45,9 @@ public class VisiteResourceIntTest {
     private static final String DEFAULT_LABEL = "AAAAAAAAAA";
     private static final String UPDATED_LABEL = "BBBBBBBBBB";
 
+    private static final String DEFAULT_RESUME = "AAAAAAAAAA";
+    private static final String UPDATED_RESUME = "BBBBBBBBBB";
+
     private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
 
@@ -90,6 +93,7 @@ public class VisiteResourceIntTest {
     public static Visite createEntity(EntityManager em) {
         Visite visite = new Visite()
             .label(DEFAULT_LABEL)
+            .resume(DEFAULT_RESUME)
             .date(DEFAULT_DATE);
         return visite;
     }
@@ -115,6 +119,7 @@ public class VisiteResourceIntTest {
         assertThat(visiteList).hasSize(databaseSizeBeforeCreate + 1);
         Visite testVisite = visiteList.get(visiteList.size() - 1);
         assertThat(testVisite.getLabel()).isEqualTo(DEFAULT_LABEL);
+        assertThat(testVisite.getResume()).isEqualTo(DEFAULT_RESUME);
         assertThat(testVisite.getDate()).isEqualTo(DEFAULT_DATE);
     }
 
@@ -139,6 +144,24 @@ public class VisiteResourceIntTest {
 
     @Test
     @Transactional
+    public void checkLabelIsRequired() throws Exception {
+        int databaseSizeBeforeTest = visiteRepository.findAll().size();
+        // set the field null
+        visite.setLabel(null);
+
+        // Create the Visite, which fails.
+
+        restVisiteMockMvc.perform(post("/api/visites")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(visite)))
+            .andExpect(status().isBadRequest());
+
+        List<Visite> visiteList = visiteRepository.findAll();
+        assertThat(visiteList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllVisites() throws Exception {
         // Initialize the database
         visiteRepository.saveAndFlush(visite);
@@ -149,6 +172,7 @@ public class VisiteResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(visite.getId().intValue())))
             .andExpect(jsonPath("$.[*].label").value(hasItem(DEFAULT_LABEL.toString())))
+            .andExpect(jsonPath("$.[*].resume").value(hasItem(DEFAULT_RESUME.toString())))
             .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())));
     }
     
@@ -164,6 +188,7 @@ public class VisiteResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(visite.getId().intValue()))
             .andExpect(jsonPath("$.label").value(DEFAULT_LABEL.toString()))
+            .andExpect(jsonPath("$.resume").value(DEFAULT_RESUME.toString()))
             .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()));
     }
 
@@ -189,6 +214,7 @@ public class VisiteResourceIntTest {
         em.detach(updatedVisite);
         updatedVisite
             .label(UPDATED_LABEL)
+            .resume(UPDATED_RESUME)
             .date(UPDATED_DATE);
 
         restVisiteMockMvc.perform(put("/api/visites")
@@ -201,6 +227,7 @@ public class VisiteResourceIntTest {
         assertThat(visiteList).hasSize(databaseSizeBeforeUpdate);
         Visite testVisite = visiteList.get(visiteList.size() - 1);
         assertThat(testVisite.getLabel()).isEqualTo(UPDATED_LABEL);
+        assertThat(testVisite.getResume()).isEqualTo(UPDATED_RESUME);
         assertThat(testVisite.getDate()).isEqualTo(UPDATED_DATE);
     }
 

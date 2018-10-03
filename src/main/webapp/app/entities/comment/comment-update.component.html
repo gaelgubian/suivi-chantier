@@ -10,44 +10,60 @@
                         [(ngModel)]="comment.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_label">Label</label>
+                    <label class="form-control-label" for="field_label" ngbTooltip="Objet du commentaire">Label</label>
                     <input type="text" class="form-control" name="label" id="field_label"
-                        [(ngModel)]="comment.label" />
+                        [(ngModel)]="comment.label" required maxlength="256"/>
+                    <div [hidden]="!(editForm.controls.label?.dirty && editForm.controls.label?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.label?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.label?.errors?.maxlength">
+                        This field cannot be longer than 256 characters.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_comment">Comment</label>
+                    <label class="form-control-label" for="field_comment" ngbTooltip="Détail du commentaire">Comment</label>
                     <input type="text" class="form-control" name="comment" id="field_comment"
-                        [(ngModel)]="comment.comment" />
+                        [(ngModel)]="comment.comment" maxlength="4000"/>
+                    <div [hidden]="!(editForm.controls.comment?.dirty && editForm.controls.comment?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.comment?.errors?.maxlength">
+                        This field cannot be longer than 4000 characters.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_positionx">Positionx</label>
+                    <label class="form-control-label" for="field_positionx" ngbTooltip="Position (X) du commentaire lorsqu&#39;il est lié à un document">Positionx</label>
                     <input type="number" class="form-control" name="positionx" id="field_positionx"
                         [(ngModel)]="comment.positionx" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_positiony">Positiony</label>
+                    <label class="form-control-label" for="field_positiony" ngbTooltip="Position (Y) du commentaire lorsqu&#39;il est lié à un document">Positiony</label>
                     <input type="number" class="form-control" name="positiony" id="field_positiony"
                         [(ngModel)]="comment.positiony" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_width">Width</label>
+                    <label class="form-control-label" for="field_width" ngbTooltip="Largeur du commentaire lorsqu&#39;il est lié à un document">Width</label>
                     <input type="number" class="form-control" name="width" id="field_width"
                         [(ngModel)]="comment.width" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_heigth">Heigth</label>
+                    <label class="form-control-label" for="field_heigth" ngbTooltip="Hauteur du commentaire lorsqu&#39;il est lié à un document">Heigth</label>
                     <input type="number" class="form-control" name="heigth" id="field_heigth"
                         [(ngModel)]="comment.heigth" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_modified">Modified</label>
+                    <label class="form-control-label" for="field_modified" ngbTooltip="Date de dernière modification">Modified</label>
                     <div class="d-flex">
                         <input id="field_modified" type="datetime-local" class="form-control" name="modified" [(ngModel)]="modified"
                         />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_echeance">Echeance</label>
+                    <label class="form-control-label" for="field_echeance" ngbTooltip="Echéance de résolution">Echeance</label>
                     <div class="input-group">
                         <input id="field_echeance" type="text" class="form-control" name="echeance" ngbDatepicker  #echeanceDp="ngbDatepicker" [(ngModel)]="comment.echeance"
                         />
@@ -57,7 +73,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_image">Image</label>
+                    <label class="form-control-label" for="field_image" ngbTooltip="Image illustrant le commentaire effectué. Par exemple une photo de l&#39;anomalie évoquée dans le commentaire.">Image</label>
                     <div>
                         <img [src]="'data:' + comment.imageContentType + ';base64,' + comment.image" style="max-height: 100px;" *ngIf="comment.image" alt="comment image"/>
                         <div *ngIf="comment.image" class="form-text text-danger clearfix">
@@ -80,18 +96,19 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_type">Type</label>
+                    <label class="form-control-label" for="field_type" ngbTooltip="Type de commentaire">Type</label>
                     <select class="form-control" name="type" [(ngModel)]="comment.type" id="field_type" >
                         <option value="ADMINISTATIF">ADMINISTATIF</option>
                         <option value="PLANS">PLANS</option>
                         <option value="ETUDE">ETUDE</option>
                         <option value="AVANCEMENT">AVANCEMENT</option>
                         <option value="SECURITE">SECURITE</option>
+                        <option value="NON_CONFORMITE">NON_CONFORMITE</option>
                         <option value="DIVERS">DIVERS</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_state">State</label>
+                    <label class="form-control-label" for="field_state" ngbTooltip="Statut de l&#39;avancement de la prise en compte du commentaire">State</label>
                     <select class="form-control" name="state" [(ngModel)]="comment.state" id="field_state" >
                         <option value="A_VERIFIER">A_VERIFIER</option>
                         <option value="A_CORRIGER">A_CORRIGER</option>
@@ -105,14 +122,21 @@
                     <label class="form-control-label" for="field_icon">Icon</label>
                     <select class="form-control" id="field_icon" name="icon" [(ngModel)]="comment.icon" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="iconOption.id === comment.icon?.id ? comment.icon : iconOption" *ngFor="let iconOption of icons; trackBy: trackIconById">{{iconOption.id}}</option>
+                        <option [ngValue]="iconOption.id === comment.icon?.id ? comment.icon : iconOption" *ngFor="let iconOption of icons; trackBy: trackIconById">{{iconOption.label}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_visite">Visite</label>
                     <select class="form-control" id="field_visite" name="visite" [(ngModel)]="comment.visite" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="visiteOption.id === comment.visite?.id ? comment.visite : visiteOption" *ngFor="let visiteOption of visites; trackBy: trackVisiteById">{{visiteOption.id}}</option>
+                        <option [ngValue]="visiteOption.id === comment.visite?.id ? comment.visite : visiteOption" *ngFor="let visiteOption of visites; trackBy: trackVisiteById">{{visiteOption.label}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_documents">Documents</label>
+                    <select class="form-control" id="field_documents" name="documents" [(ngModel)]="comment.documents" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="documentOption.id === comment.documents?.id ? comment.documents : documentOption" *ngFor="let documentOption of documents; trackBy: trackDocumentById">{{documentOption.label}}</option>
                     </select>
                 </div>
             </div>

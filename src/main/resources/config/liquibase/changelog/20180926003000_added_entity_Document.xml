@@ -17,19 +17,30 @@
         Added the entity Document.
     -->
     <changeSet id="20180926003000-1" author="jhipster">
-        <createTable tableName="document">
+        <createTable tableName="document" remarks="Document">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="jhi_label" type="varchar(255)">
+            <column name="jhi_label" type="varchar(256)" remarks="Nom du document">
                 <constraints nullable="false" />
             </column>
 
-            <column name="description" type="varchar(255)">
+            <column name="description" type="varchar(4000)" remarks="Détail sur le document, résumé, commentaires...">
                 <constraints nullable="true" />
             </column>
 
-            <column name="path" type="varchar(255)">
+            <column name="path" type="varchar(4000)" remarks="Chemin d&apos;accès complet au fichier sur le serveur. Dont le nom du fichier après renommage de sécurité">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="filename" type="varchar(512)" remarks="nom du fichier original">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="content" type="longblob" remarks="TODO : attribut à supprimer. Stocker le fichier sur le système, le convertir en images (tuiles)">
+                <constraints nullable="true" />
+            </column>
+            <column name="content_content_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
@@ -38,6 +49,10 @@
             </column>
 
             <column name="bien_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="visite_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 

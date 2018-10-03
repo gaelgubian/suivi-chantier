@@ -17,8 +17,8 @@
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="label"><span>Label</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="description"><span>Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="chantier.id"><span>Chantier</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="adressechantier.id"><span>Adressechantier</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="adresseBien.id"><span>Adresse Bien</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="chantier.label"><span>Chantier</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -28,13 +28,13 @@
                 <td>{{bien.label}}</td>
                 <td>{{bien.description}}</td>
                 <td>
-                    <div *ngIf="bien.chantier">
-                        <a [routerLink]="['../chantier', bien.chantier?.id, 'view' ]" >{{bien.chantier?.id}}</a>
+                    <div *ngIf="bien.adresseBien">
+                        <a [routerLink]="['../adresse', bien.adresseBien?.id, 'view' ]" >{{bien.adresseBien?.id}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="bien.adressechantier">
-                        <a [routerLink]="['../adresse', bien.adressechantier?.id, 'view' ]" >{{bien.adressechantier?.id}}</a>
+                    <div *ngIf="bien.chantier">
+                        <a [routerLink]="['../chantier', bien.chantier?.id, 'view' ]" >{{bien.chantier?.label}}</a>
                     </div>
                 </td>
                 <td class="text-right">

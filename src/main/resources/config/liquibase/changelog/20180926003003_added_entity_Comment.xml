@@ -17,54 +17,54 @@
         Added the entity Comment.
     -->
     <changeSet id="20180926003003-1" author="jhipster">
-        <createTable tableName="comment">
+        <createTable tableName="comment" remarks="Commentaire effectué lors d&apos;une visite">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="jhi_label" type="varchar(255)">
+            <column name="jhi_label" type="varchar(256)" remarks="Objet du commentaire">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="jhi_comment" type="varchar(4000)" remarks="Détail du commentaire">
                 <constraints nullable="true" />
             </column>
 
-            <column name="jhi_comment" type="varchar(255)">
+            <column name="positionx" type="integer" remarks="Position (X) du commentaire lorsqu&apos;il est lié à un document">
                 <constraints nullable="true" />
             </column>
 
-            <column name="positionx" type="integer">
+            <column name="positiony" type="integer" remarks="Position (Y) du commentaire lorsqu&apos;il est lié à un document">
                 <constraints nullable="true" />
             </column>
 
-            <column name="positiony" type="integer">
+            <column name="width" type="integer" remarks="Largeur du commentaire lorsqu&apos;il est lié à un document">
                 <constraints nullable="true" />
             </column>
 
-            <column name="width" type="integer">
+            <column name="heigth" type="integer" remarks="Hauteur du commentaire lorsqu&apos;il est lié à un document">
                 <constraints nullable="true" />
             </column>
 
-            <column name="heigth" type="integer">
+            <column name="modified" type="datetime" remarks="Date de dernière modification">
                 <constraints nullable="true" />
             </column>
 
-            <column name="modified" type="datetime">
+            <column name="echeance" type="date" remarks="Echéance de résolution">
                 <constraints nullable="true" />
             </column>
 
-            <column name="echeance" type="date">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="image" type="longblob">
+            <column name="image" type="longblob" remarks="Image illustrant le commentaire effectué. Par exemple une photo de l&apos;anomalie évoquée dans le commentaire.">
                 <constraints nullable="true" />
             </column>
             <column name="image_content_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="jhi_type" type="varchar(255)">
+            <column name="jhi_type" type="varchar(255)" remarks="Type de commentaire">
                 <constraints nullable="true" />
             </column>
 
-            <column name="state" type="varchar(255)">
+            <column name="state" type="varchar(255)" remarks="Statut de l&apos;avancement de la prise en compte du commentaire">
                 <constraints nullable="true" />
             </column>
 
@@ -73,6 +73,10 @@
             </column>
 
             <column name="visite_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="documents_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 

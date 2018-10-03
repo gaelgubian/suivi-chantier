@@ -10,10 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * Service Implementation for managing Contact.
@@ -52,20 +49,6 @@ public class ContactService {
         return contactRepository.findAll(pageable);
     }
 
-
-
-    /**
-     *  get all the contacts where ChantierIntervenant is null.
-     *  @return the list of entities
-     */
-    @Transactional(readOnly = true) 
-    public List<Contact> findAllWhereChantierIntervenantIsNull() {
-        log.debug("Request to get all contacts where ChantierIntervenant is null");
-        return StreamSupport
-            .stream(contactRepository.findAll().spliterator(), false)
-            .filter(contact -> contact.getChantierIntervenant() == null)
-            .collect(Collectors.toList());
-    }
 
     /**
      * Get one contact by id.

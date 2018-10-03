@@ -5,17 +5,28 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span>Label</span></dt>
+                <dt><span ngbTooltip="Nom du document">Label</span></dt>
                 <dd>
                     <span>{{document.label}}</span>
                 </dd>
-                <dt><span>Description</span></dt>
+                <dt><span ngbTooltip="Détail sur le document, résumé, commentaires...">Description</span></dt>
                 <dd>
                     <span>{{document.description}}</span>
                 </dd>
-                <dt><span>Path</span></dt>
+                <dt><span ngbTooltip="Chemin d&#39;accès complet au fichier sur le serveur. Dont le nom du fichier après renommage de sécurité">Path</span></dt>
                 <dd>
                     <span>{{document.path}}</span>
+                </dd>
+                <dt><span ngbTooltip="nom du fichier original">Filename</span></dt>
+                <dd>
+                    <span>{{document.filename}}</span>
+                </dd>
+                <dt><span ngbTooltip="TODO : attribut à supprimer. Stocker le fichier sur le système, le convertir en images (tuiles)">Content</span></dt>
+                <dd>
+                    <div *ngIf="document.content">
+                        <a (click)="openFile(document.contentContentType, document.content)">open</a>
+                        {{document.contentContentType}}, {{byteSize(document.content)}}
+                    </div>
                 </dd>
                 <dt><span>Chantier</span></dt>
                 <dd>
@@ -27,6 +38,12 @@
                 <dd>
                     <div *ngIf="document.bien">
                         <a [routerLink]="['/bien', document.bien?.id, 'view']">{{document.bien?.label}}</a>
+                    </div>
+                </dd>
+                <dt><span>Visite</span></dt>
+                <dd>
+                    <div *ngIf="document.visite">
+                        <a [routerLink]="['/visite', document.visite?.id, 'view']">{{document.visite?.label}}</a>
                     </div>
                 </dd>
             </dl>

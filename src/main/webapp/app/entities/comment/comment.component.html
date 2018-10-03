@@ -26,8 +26,9 @@
             <th jhiSortBy="image"><span>Image</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="type"><span>Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="state"><span>State</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="icon.id"><span>Icon</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="visite.id"><span>Visite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="icon.label"><span>Icon</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="visite.label"><span>Visite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="documents.label"><span>Documents</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -52,12 +53,17 @@
                 <td>{{comment.state}}</td>
                 <td>
                     <div *ngIf="comment.icon">
-                        <a [routerLink]="['../icon', comment.icon?.id, 'view' ]" >{{comment.icon?.id}}</a>
+                        <a [routerLink]="['../icon', comment.icon?.id, 'view' ]" >{{comment.icon?.label}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="comment.visite">
-                        <a [routerLink]="['../visite', comment.visite?.id, 'view' ]" >{{comment.visite?.id}}</a>
+                        <a [routerLink]="['../visite', comment.visite?.id, 'view' ]" >{{comment.visite?.label}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="comment.documents">
+                        <a [routerLink]="['../document', comment.documents?.id, 'view' ]" >{{comment.documents?.label}}</a>
                     </div>
                 </td>
                 <td class="text-right">

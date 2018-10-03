@@ -16,11 +16,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 /**
  * REST controller for managing Adresse.
@@ -48,7 +50,7 @@ public class AdresseResource {
      */
     @PostMapping("/adresses")
     @Timed
-    public ResponseEntity<Adresse> createAdresse(@RequestBody Adresse adresse) throws URISyntaxException {
+    public ResponseEntity<Adresse> createAdresse(@Valid @RequestBody Adresse adresse) throws URISyntaxException {
         log.debug("REST request to save Adresse : {}", adresse);
         if (adresse.getId() != null) {
             throw new BadRequestAlertException("A new adresse cannot already have an ID", ENTITY_NAME, "idexists");
@@ -70,7 +72,7 @@ public class AdresseResource {
      */
     @PutMapping("/adresses")
     @Timed
-    public ResponseEntity<Adresse> updateAdresse(@RequestBody Adresse adresse) throws URISyntaxException {
+    public ResponseEntity<Adresse> updateAdresse(@Valid @RequestBody Adresse adresse) throws URISyntaxException {
         log.debug("REST request to update Adresse : {}", adresse);
         if (adresse.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -85,11 +87,22 @@ public class AdresseResource {
      * GET  /adresses : get all the adresses.
      *
      * @param pageable the pagination information
+     * @param filter the filter of the request
      * @return the ResponseEntity with status 200 (OK) and the list of adresses in body
      */
     @GetMapping("/adresses")
     @Timed
-    public ResponseEntity<List<Adresse>> getAllAdresses(Pageable pageable) {
+    public ResponseEntity<List<Adresse>> getAllAdresses(Pageable pageable, @RequestParam(required = false) String filter) {
+        if ("contact-is-null".equals(filter)) {
+            log.debug("REST request to get all Adresses where contact is null");
+            return new ResponseEntity<>(adresseService.findAllWhereContactIsNull(),
+                    HttpStatus.OK);
+        }
+        if ("bien-is-null".equals(filter)) {
+            log.debug("REST request to get all Adresses where bien is null");
+            return new ResponseEntity<>(adresseService.findAllWhereBienIsNull(),
+                    HttpStatus.OK);
+        }
         log.debug("REST request to get a page of Adresses");
         Page<Adresse> page = adresseService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/adresses");

@@ -1,6 +1,7 @@
 package fr.gubian.suivichantier.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModel;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -9,8 +10,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A DocumentTuile.
+ * Tuile (partie d'un document sous forme d'image)
  */
+@ApiModel(description = "Tuile (partie d'un document sous forme d'image)")
 @Entity
 @Table(name = "document_tuile")
 public class DocumentTuile implements Serializable {
@@ -31,8 +33,8 @@ public class DocumentTuile implements Serializable {
     private String contentContentType;
 
     @ManyToOne
-    @JsonIgnoreProperties("documentTuiles")
-    private Document document;
+    @JsonIgnoreProperties("tuiles")
+    private Document documents;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -69,17 +71,17 @@ public class DocumentTuile implements Serializable {
         this.contentContentType = contentContentType;
     }
 
-    public Document getDocument() {
-        return document;
+    public Document getDocuments() {
+        return documents;
     }
 
-    public DocumentTuile document(Document document) {
-        this.document = document;
+    public DocumentTuile documents(Document document) {
+        this.documents = document;
         return this;
     }
 
-    public void setDocument(Document document) {
-        this.document = document;
+    public void setDocuments(Document document) {
+        this.documents = document;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

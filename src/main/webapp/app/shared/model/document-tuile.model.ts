@@ -4,9 +4,9 @@ export interface IDocumentTuile {
     id?: number;
     contentContentType?: string;
     content?: any;
-    document?: IDocument;
+    documents?: IDocument;
 }
 
 export class DocumentTuile implements IDocumentTuile {
-    constructor(public id?: number, public contentContentType?: string, public content?: any, public document?: IDocument) {}
+    constructor(public id?: number, public contentContentType?: string, public content?: any, public documents?: IDocument) {}
 }

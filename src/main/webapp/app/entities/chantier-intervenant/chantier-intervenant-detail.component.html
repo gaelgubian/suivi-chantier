@@ -22,7 +22,7 @@
                 <dt><span>Chantier</span></dt>
                 <dd>
                     <div *ngIf="chantierIntervenant.chantier">
-                        <a [routerLink]="['/chantier', chantierIntervenant.chantier?.id, 'view']">{{chantierIntervenant.chantier?.id}}</a>
+                        <a [routerLink]="['/chantier', chantierIntervenant.chantier?.id, 'view']">{{chantierIntervenant.chantier?.label}}</a>
                     </div>
                 </dd>
             </dl>

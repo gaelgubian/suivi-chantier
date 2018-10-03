@@ -5,28 +5,28 @@
             "fieldName": "label",
             "fieldType": "String",
             "fieldValidateRules": [
-                "required"
-            ]
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 256
         },
         {
             "fieldName": "description",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 4000
         }
     ],
     "relationships": [
         {
-            "relationshipName": "chantier",
-            "otherEntityName": "chantier",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
-        },
-        {
             "relationshipType": "one-to-one",
-            "relationshipName": "adressechantier",
+            "relationshipName": "adresseBien",
             "otherEntityName": "adresse",
             "otherEntityField": "id",
             "ownerSide": true,
-            "otherEntityRelationshipName": "bien"
+            "otherEntityRelationshipName": "bien(label)"
         },
         {
             "relationshipType": "one-to-many",
@@ -39,6 +39,12 @@
             "relationshipName": "visites",
             "otherEntityName": "visite",
             "otherEntityRelationshipName": "bien"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "chantier",
+            "otherEntityName": "chantier",
+            "otherEntityField": "label"
         }
     ],
     "changelogDate": "20180926002958",

@@ -29,8 +29,11 @@ export class DocumentUpdatePage {
     labelInput = element(by.id('field_label'));
     descriptionInput = element(by.id('field_description'));
     pathInput = element(by.id('field_path'));
+    filenameInput = element(by.id('field_filename'));
+    contentInput = element(by.id('file_content'));
     chantierSelect = element(by.id('field_chantier'));
     bienSelect = element(by.id('field_bien'));
+    visiteSelect = element(by.id('field_visite'));
 
     async getPageTitle() {
         return this.pageTitle.getText();
@@ -58,6 +61,22 @@ export class DocumentUpdatePage {
 
     async getPathInput() {
         return this.pathInput.getAttribute('value');
+    }
+
+    async setFilenameInput(filename) {
+        await this.filenameInput.sendKeys(filename);
+    }
+
+    async getFilenameInput() {
+        return this.filenameInput.getAttribute('value');
+    }
+
+    async setContentInput(content) {
+        await this.contentInput.sendKeys(content);
+    }
+
+    async getContentInput() {
+        return this.contentInput.getAttribute('value');
     }
 
     async chantierSelectLastOption() {
@@ -96,6 +115,25 @@ export class DocumentUpdatePage {
 
     async getBienSelectedOption() {
         return this.bienSelect.element(by.css('option:checked')).getText();
+    }
+
+    async visiteSelectLastOption() {
+        await this.visiteSelect
+            .all(by.tagName('option'))
+            .last()
+            .click();
+    }
+
+    async visiteSelectOption(option) {
+        await this.visiteSelect.sendKeys(option);
+    }
+
+    getVisiteSelect(): ElementFinder {
+        return this.visiteSelect;
+    }
+
+    async getVisiteSelectedOption() {
+        return this.visiteSelect.element(by.css('option:checked')).getText();
     }
 
     async save() {

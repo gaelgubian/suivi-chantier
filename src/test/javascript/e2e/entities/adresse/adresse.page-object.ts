@@ -26,16 +26,34 @@ export class AdresseUpdatePage {
     pageTitle = element(by.id('jhi-adresse-heading'));
     saveButton = element(by.id('save-entity'));
     cancelButton = element(by.id('cancel-save'));
+    appartementInput = element(by.id('field_appartement'));
+    entreeInput = element(by.id('field_entree'));
     numeroInput = element(by.id('field_numero'));
-    rueInput = element(by.id('field_rue'));
+    voieInput = element(by.id('field_voie'));
     complementInput = element(by.id('field_complement'));
     codepostalInput = element(by.id('field_codepostal'));
     villeInput = element(by.id('field_ville'));
-    positionxInput = element(by.id('field_positionx'));
-    positionyInput = element(by.id('field_positiony'));
+    latitudeInput = element(by.id('field_latitude'));
+    longitudeInput = element(by.id('field_longitude'));
 
     async getPageTitle() {
         return this.pageTitle.getText();
+    }
+
+    async setAppartementInput(appartement) {
+        await this.appartementInput.sendKeys(appartement);
+    }
+
+    async getAppartementInput() {
+        return this.appartementInput.getAttribute('value');
+    }
+
+    async setEntreeInput(entree) {
+        await this.entreeInput.sendKeys(entree);
+    }
+
+    async getEntreeInput() {
+        return this.entreeInput.getAttribute('value');
     }
 
     async setNumeroInput(numero) {
@@ -46,12 +64,12 @@ export class AdresseUpdatePage {
         return this.numeroInput.getAttribute('value');
     }
 
-    async setRueInput(rue) {
-        await this.rueInput.sendKeys(rue);
+    async setVoieInput(voie) {
+        await this.voieInput.sendKeys(voie);
     }
 
-    async getRueInput() {
-        return this.rueInput.getAttribute('value');
+    async getVoieInput() {
+        return this.voieInput.getAttribute('value');
     }
 
     async setComplementInput(complement) {
@@ -78,20 +96,20 @@ export class AdresseUpdatePage {
         return this.villeInput.getAttribute('value');
     }
 
-    async setPositionxInput(positionx) {
-        await this.positionxInput.sendKeys(positionx);
+    async setLatitudeInput(latitude) {
+        await this.latitudeInput.sendKeys(latitude);
     }
 
-    async getPositionxInput() {
-        return this.positionxInput.getAttribute('value');
+    async getLatitudeInput() {
+        return this.latitudeInput.getAttribute('value');
     }
 
-    async setPositionyInput(positiony) {
-        await this.positionyInput.sendKeys(positiony);
+    async setLongitudeInput(longitude) {
+        await this.longitudeInput.sendKeys(longitude);
     }
 
-    async getPositionyInput() {
-        return this.positionyInput.getAttribute('value');
+    async getLongitudeInput() {
+        return this.longitudeInput.getAttribute('value');
     }
 
     async save() {

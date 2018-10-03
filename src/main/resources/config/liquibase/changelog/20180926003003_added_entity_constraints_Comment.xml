@@ -20,5 +20,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="visite"/>
 
+        <addForeignKeyConstraint baseColumnNames="documents_id"
+                                 baseTableName="comment"
+                                 constraintName="fk_comment_documents_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="document"/>
+
     </changeSet>
 </databaseChangeLog>

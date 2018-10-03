@@ -42,6 +42,8 @@ describe('Contact e2e test', () => {
         expect(await contactUpdatePage.getLabelInput()).to.eq('label');
         await contactUpdatePage.setLoginInput('login');
         expect(await contactUpdatePage.getLoginInput()).to.eq('login');
+        await contactUpdatePage.setRaisonsocialeInput('raisonsociale');
+        expect(await contactUpdatePage.getRaisonsocialeInput()).to.eq('raisonsociale');
         await contactUpdatePage.setPrenomInput('prenom');
         expect(await contactUpdatePage.getPrenomInput()).to.eq('prenom');
         await contactUpdatePage.setNomInput('nom');
@@ -59,7 +61,7 @@ describe('Contact e2e test', () => {
         await contactUpdatePage.setPosteInput('poste');
         expect(await contactUpdatePage.getPosteInput()).to.eq('poste');
         await contactUpdatePage.corpmetierSelectLastOption();
-        await contactUpdatePage.adressecontactSelectLastOption();
+        await contactUpdatePage.adresseSelectLastOption();
         await contactUpdatePage.save();
         expect(await contactUpdatePage.getSaveButton().isPresent()).to.be.false;
 

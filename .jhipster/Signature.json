@@ -22,18 +22,19 @@
         },
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "document",
+            "relationshipName": "documents",
             "otherEntityName": "document",
-            "otherEntityField": "id"
+            "otherEntityField": "label"
         },
         {
             "relationshipType": "many-to-one",
             "relationshipName": "visite",
             "otherEntityName": "visite",
-            "otherEntityField": "id"
+            "otherEntityField": "label"
         }
     ],
     "changelogDate": "20180926003002",
+    "javadoc": "image de la signature d'un document (saisie par stylet) par une personne",
     "entityTableName": "signature",
     "dto": "no",
     "pagination": "pagination",

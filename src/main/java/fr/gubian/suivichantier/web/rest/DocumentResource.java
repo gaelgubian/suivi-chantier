@@ -22,7 +22,6 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 
 /**
  * REST controller for managing Document.
@@ -87,17 +86,11 @@ public class DocumentResource {
      * GET  /documents : get all the documents.
      *
      * @param pageable the pagination information
-     * @param filter the filter of the request
      * @return the ResponseEntity with status 200 (OK) and the list of documents in body
      */
     @GetMapping("/documents")
     @Timed
-    public ResponseEntity<List<Document>> getAllDocuments(Pageable pageable, @RequestParam(required = false) String filter) {
-        if ("visite-is-null".equals(filter)) {
-            log.debug("REST request to get all Documents where visite is null");
-            return new ResponseEntity<>(documentService.findAllWhereVisiteIsNull(),
-                    HttpStatus.OK);
-        }
+    public ResponseEntity<List<Document>> getAllDocuments(Pageable pageable) {
         log.debug("REST request to get a page of Documents");
         Page<Document> page = documentService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/documents");

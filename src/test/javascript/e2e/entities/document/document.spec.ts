@@ -3,6 +3,7 @@ import { browser, ExpectedConditions as ec } from 'protractor';
 import { NavBarPage, SignInPage } from '../../page-objects/jhi-page-objects';
 
 import { DocumentComponentsPage, DocumentDeleteDialog, DocumentUpdatePage } from './document.page-object';
+import * as path from 'path';
 
 const expect = chai.expect;
 
@@ -12,6 +13,8 @@ describe('Document e2e test', () => {
     let documentUpdatePage: DocumentUpdatePage;
     let documentComponentsPage: DocumentComponentsPage;
     let documentDeleteDialog: DocumentDeleteDialog;
+    const fileToUpload = '../../../../../main/webapp/content/images/logo-jhipster.png';
+    const absolutePath = path.resolve(__dirname, fileToUpload);
 
     before(async () => {
         await browser.get('/');
@@ -44,8 +47,12 @@ describe('Document e2e test', () => {
         expect(await documentUpdatePage.getDescriptionInput()).to.eq('description');
         await documentUpdatePage.setPathInput('path');
         expect(await documentUpdatePage.getPathInput()).to.eq('path');
+        await documentUpdatePage.setFilenameInput('filename');
+        expect(await documentUpdatePage.getFilenameInput()).to.eq('filename');
+        await documentUpdatePage.setContentInput(absolutePath);
         await documentUpdatePage.chantierSelectLastOption();
         await documentUpdatePage.bienSelectLastOption();
+        await documentUpdatePage.visiteSelectLastOption();
         await documentUpdatePage.save();
         expect(await documentUpdatePage.getSaveButton().isPresent()).to.be.false;
 

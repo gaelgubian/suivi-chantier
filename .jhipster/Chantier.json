@@ -3,6 +3,7 @@
     "fields": [
         {
             "fieldName": "label",
+            "javadoc": "Nom court du chantier permettant de faciliter les recherches",
             "fieldType": "String",
             "fieldValidateRules": [
                 "required",
@@ -12,6 +13,7 @@
         },
         {
             "fieldName": "image",
+            "javadoc": "Photo ou image représentant le chantier",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image",
             "fieldValidateRules": [
@@ -21,14 +23,21 @@
         },
         {
             "fieldName": "description",
-            "fieldType": "String"
+            "javadoc": "Description du chantier",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 4000
         },
         {
             "fieldName": "dateDebut",
+            "javadoc": "Date de lancement du chantier",
             "fieldType": "LocalDate"
         },
         {
             "fieldName": "dateFin",
+            "javadoc": "Date de fin (prévisionnelle) du chantier",
             "fieldType": "LocalDate"
         }
     ],
@@ -47,13 +56,13 @@
         },
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "chantierIntervenant",
+            "relationshipName": "chantierIntervenants",
             "otherEntityName": "chantierIntervenant",
             "otherEntityRelationshipName": "chantier"
         }
     ],
     "changelogDate": "20180926002956",
-    "javadoc": "application {\nconfig {\nbaseName suivichantier,\nnativeLanguage fr,\npackageName fr.gubian.suivichantier,\nprodDatabaseType postgresql\n}\n}",
+    "javadoc": "Un chantier",
     "entityTableName": "chantier",
     "dto": "no",
     "pagination": "pagination",

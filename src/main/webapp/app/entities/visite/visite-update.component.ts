@@ -8,8 +8,6 @@ import { IVisite } from 'app/shared/model/visite.model';
 import { VisiteService } from './visite.service';
 import { IBien } from 'app/shared/model/bien.model';
 import { BienService } from 'app/entities/bien';
-import { IDocument } from 'app/shared/model/document.model';
-import { DocumentService } from 'app/entities/document';
 
 @Component({
     selector: 'jhi-visite-update',
@@ -20,15 +18,12 @@ export class VisiteUpdateComponent implements OnInit {
     isSaving: boolean;
 
     biens: IBien[];
-
-    documents: IDocument[];
     dateDp: any;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private visiteService: VisiteService,
         private bienService: BienService,
-        private documentService: DocumentService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -40,21 +35,6 @@ export class VisiteUpdateComponent implements OnInit {
         this.bienService.query().subscribe(
             (res: HttpResponse<IBien[]>) => {
                 this.biens = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.documentService.query({ filter: 'visite-is-null' }).subscribe(
-            (res: HttpResponse<IDocument[]>) => {
-                if (!this.visite.document || !this.visite.document.id) {
-                    this.documents = res.body;
-                } else {
-                    this.documentService.find(this.visite.document.id).subscribe(
-                        (subRes: HttpResponse<IDocument>) => {
-                            this.documents = [subRes.body].concat(res.body);
-                        },
-                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
-                    );
-                }
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -91,10 +71,6 @@ export class VisiteUpdateComponent implements OnInit {
     }
 
     trackBienById(index: number, item: IBien) {
-        return item.id;
-    }
-
-    trackDocumentById(index: number, item: IDocument) {
         return item.id;
     }
     get visite() {

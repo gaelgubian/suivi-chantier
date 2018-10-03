@@ -10,10 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * Service Implementation for managing Document.
@@ -52,20 +49,6 @@ public class DocumentService {
         return documentRepository.findAll(pageable);
     }
 
-
-
-    /**
-     *  get all the documents where Visite is null.
-     *  @return the list of entities
-     */
-    @Transactional(readOnly = true) 
-    public List<Document> findAllWhereVisiteIsNull() {
-        log.debug("Request to get all documents where Visite is null");
-        return StreamSupport
-            .stream(documentRepository.findAll().spliterator(), false)
-            .filter(document -> document.getVisite() == null)
-            .collect(Collectors.toList());
-    }
 
     /**
      * Get one document by id.

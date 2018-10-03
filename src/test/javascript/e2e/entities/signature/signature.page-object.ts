@@ -28,7 +28,7 @@ export class SignatureUpdatePage {
     cancelButton = element(by.id('cancel-save'));
     imageInput = element(by.id('file_image'));
     chantierIntervenantSelect = element(by.id('field_chantierIntervenant'));
-    documentSelect = element(by.id('field_document'));
+    documentsSelect = element(by.id('field_documents'));
     visiteSelect = element(by.id('field_visite'));
 
     async getPageTitle() {
@@ -62,23 +62,23 @@ export class SignatureUpdatePage {
         return this.chantierIntervenantSelect.element(by.css('option:checked')).getText();
     }
 
-    async documentSelectLastOption() {
-        await this.documentSelect
+    async documentsSelectLastOption() {
+        await this.documentsSelect
             .all(by.tagName('option'))
             .last()
             .click();
     }
 
-    async documentSelectOption(option) {
-        await this.documentSelect.sendKeys(option);
+    async documentsSelectOption(option) {
+        await this.documentsSelect.sendKeys(option);
     }
 
-    getDocumentSelect(): ElementFinder {
-        return this.documentSelect;
+    getDocumentsSelect(): ElementFinder {
+        return this.documentsSelect;
     }
 
-    async getDocumentSelectedOption() {
-        return this.documentSelect.element(by.css('option:checked')).getText();
+    async getDocumentsSelectedOption() {
+        return this.documentsSelect.element(by.css('option:checked')).getText();
     }
 
     async visiteSelectLastOption() {

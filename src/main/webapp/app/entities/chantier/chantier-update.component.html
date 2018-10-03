@@ -10,7 +10,7 @@
                         [(ngModel)]="chantier.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_label">Label</label>
+                    <label class="form-control-label" for="field_label" ngbTooltip="Nom court du chantier permettant de faciliter les recherches">Label</label>
                     <input type="text" class="form-control" name="label" id="field_label"
                         [(ngModel)]="chantier.label" required maxlength="64"/>
                     <div [hidden]="!(editForm.controls.label?.dirty && editForm.controls.label?.invalid)">
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_image">Image</label>
+                    <label class="form-control-label" for="field_image" ngbTooltip="Photo ou image représentant le chantier">Image</label>
                     <div>
                         <img [src]="'data:' + chantier.imageContentType + ';base64,' + chantier.image" style="max-height: 100px;" *ngIf="chantier.image" alt="chantier image"/>
                         <div *ngIf="chantier.image" class="form-text text-danger clearfix">
@@ -48,12 +48,18 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_description">Description</label>
+                    <label class="form-control-label" for="field_description" ngbTooltip="Description du chantier">Description</label>
                     <input type="text" class="form-control" name="description" id="field_description"
-                        [(ngModel)]="chantier.description" />
+                        [(ngModel)]="chantier.description" maxlength="4000"/>
+                    <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.description?.errors?.maxlength">
+                        This field cannot be longer than 4000 characters.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_dateDebut">Date Debut</label>
+                    <label class="form-control-label" for="field_dateDebut" ngbTooltip="Date de lancement du chantier">Date Debut</label>
                     <div class="input-group">
                         <input id="field_dateDebut" type="text" class="form-control" name="dateDebut" ngbDatepicker  #dateDebutDp="ngbDatepicker" [(ngModel)]="chantier.dateDebut"
                         />
@@ -63,7 +69,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_dateFin">Date Fin</label>
+                    <label class="form-control-label" for="field_dateFin" ngbTooltip="Date de fin (prévisionnelle) du chantier">Date Fin</label>
                     <div class="input-group">
                         <input id="field_dateFin" type="text" class="form-control" name="dateFin" ngbDatepicker  #dateFinDp="ngbDatepicker" [(ngModel)]="chantier.dateFin"
                         />

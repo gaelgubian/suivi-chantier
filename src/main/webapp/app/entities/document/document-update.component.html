@@ -10,25 +10,76 @@
                         [(ngModel)]="document.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_label">Label</label>
+                    <label class="form-control-label" for="field_label" ngbTooltip="Nom du document">Label</label>
                     <input type="text" class="form-control" name="label" id="field_label"
-                        [(ngModel)]="document.label" required/>
+                        [(ngModel)]="document.label" required maxlength="256"/>
                     <div [hidden]="!(editForm.controls.label?.dirty && editForm.controls.label?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.label?.errors?.required">
                         This field is required.
                         </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.label?.errors?.maxlength">
+                        This field cannot be longer than 256 characters.
+                        </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_description">Description</label>
+                    <label class="form-control-label" for="field_description" ngbTooltip="Détail sur le document, résumé, commentaires...">Description</label>
                     <input type="text" class="form-control" name="description" id="field_description"
-                        [(ngModel)]="document.description" />
+                        [(ngModel)]="document.description" maxlength="4000"/>
+                    <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.description?.errors?.maxlength">
+                        This field cannot be longer than 4000 characters.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_path">Path</label>
+                    <label class="form-control-label" for="field_path" ngbTooltip="Chemin d&#39;accès complet au fichier sur le serveur. Dont le nom du fichier après renommage de sécurité">Path</label>
                     <input type="text" class="form-control" name="path" id="field_path"
-                        [(ngModel)]="document.path" />
+                        [(ngModel)]="document.path" maxlength="4000"/>
+                    <div [hidden]="!(editForm.controls.path?.dirty && editForm.controls.path?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.path?.errors?.maxlength">
+                        This field cannot be longer than 4000 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_filename" ngbTooltip="nom du fichier original">Filename</label>
+                    <input type="text" class="form-control" name="filename" id="field_filename"
+                        [(ngModel)]="document.filename" maxlength="512"/>
+                    <div [hidden]="!(editForm.controls.filename?.dirty && editForm.controls.filename?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.filename?.errors?.maxlength">
+                        This field cannot be longer than 512 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_content" ngbTooltip="TODO : attribut à supprimer. Stocker le fichier sur le système, le convertir en images (tuiles)">Content</label>
+                    <div>
+                        <div *ngIf="document.content" class="form-text text-danger clearfix">
+                            <a class="pull-left" (click)="openFile(document.contentContentType, document.content)">open</a><br>
+                            <span class="pull-left">{{document.contentContentType}}, {{byteSize(document.content)}}</span>
+                            <button type="button" (click)="document.content=null;document.contentContentType=null;"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_content" (change)="setFileData($event, document, 'content', false)"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="content" id="field_content"
+                        [(ngModel)]="document.content" maxbytes="1024000"/>
+                    <input type="hidden" class="form-control" name="contentContentType" id="field_contentContentType"
+                        [(ngModel)]="document.contentContentType" />
+                    <div [hidden]="!(editForm.controls.content?.dirty && editForm.controls.content?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.content?.errors?.maxbytes">
+                            This field cannot be more than 1024000.
+                        </small>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -43,6 +94,13 @@
                     <select class="form-control" id="field_bien" name="bien" [(ngModel)]="document.bien" >
                         <option [ngValue]="null"></option>
                         <option [ngValue]="bienOption.id === document.bien?.id ? document.bien : bienOption" *ngFor="let bienOption of biens; trackBy: trackBienById">{{bienOption.label}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_visite">Visite</label>
+                    <select class="form-control" id="field_visite" name="visite" [(ngModel)]="document.visite" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="visiteOption.id === document.visite?.id ? document.visite : visiteOption" *ngFor="let visiteOption of visites; trackBy: trackVisiteById">{{visiteOption.label}}</option>
                     </select>
                 </div>
             </div>

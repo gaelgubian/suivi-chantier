@@ -40,11 +40,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = SuiviChantierApp.class)
 public class AdresseResourceIntTest {
 
+    private static final String DEFAULT_APPARTEMENT = "AAAAAAAAAA";
+    private static final String UPDATED_APPARTEMENT = "BBBBBBBBBB";
+
+    private static final String DEFAULT_ENTREE = "AAAAAAAAAA";
+    private static final String UPDATED_ENTREE = "BBBBBBBBBB";
+
     private static final String DEFAULT_NUMERO = "AAAAAAAAAA";
     private static final String UPDATED_NUMERO = "BBBBBBBBBB";
 
-    private static final String DEFAULT_RUE = "AAAAAAAAAA";
-    private static final String UPDATED_RUE = "BBBBBBBBBB";
+    private static final String DEFAULT_VOIE = "AAAAAAAAAA";
+    private static final String UPDATED_VOIE = "BBBBBBBBBB";
 
     private static final String DEFAULT_COMPLEMENT = "AAAAAAAAAA";
     private static final String UPDATED_COMPLEMENT = "BBBBBBBBBB";
@@ -55,11 +61,11 @@ public class AdresseResourceIntTest {
     private static final String DEFAULT_VILLE = "AAAAAAAAAA";
     private static final String UPDATED_VILLE = "BBBBBBBBBB";
 
-    private static final String DEFAULT_POSITIONX = "AAAAAAAAAA";
-    private static final String UPDATED_POSITIONX = "BBBBBBBBBB";
+    private static final String DEFAULT_LATITUDE = "AAAAAAAAAA";
+    private static final String UPDATED_LATITUDE = "BBBBBBBBBB";
 
-    private static final String DEFAULT_POSITIONY = "AAAAAAAAAA";
-    private static final String UPDATED_POSITIONY = "BBBBBBBBBB";
+    private static final String DEFAULT_LONGITUDE = "AAAAAAAAAA";
+    private static final String UPDATED_LONGITUDE = "BBBBBBBBBB";
 
     @Autowired
     private AdresseRepository adresseRepository;
@@ -102,13 +108,15 @@ public class AdresseResourceIntTest {
      */
     public static Adresse createEntity(EntityManager em) {
         Adresse adresse = new Adresse()
+            .appartement(DEFAULT_APPARTEMENT)
+            .entree(DEFAULT_ENTREE)
             .numero(DEFAULT_NUMERO)
-            .rue(DEFAULT_RUE)
+            .voie(DEFAULT_VOIE)
             .complement(DEFAULT_COMPLEMENT)
             .codepostal(DEFAULT_CODEPOSTAL)
             .ville(DEFAULT_VILLE)
-            .positionx(DEFAULT_POSITIONX)
-            .positiony(DEFAULT_POSITIONY);
+            .latitude(DEFAULT_LATITUDE)
+            .longitude(DEFAULT_LONGITUDE);
         return adresse;
     }
 
@@ -132,13 +140,15 @@ public class AdresseResourceIntTest {
         List<Adresse> adresseList = adresseRepository.findAll();
         assertThat(adresseList).hasSize(databaseSizeBeforeCreate + 1);
         Adresse testAdresse = adresseList.get(adresseList.size() - 1);
+        assertThat(testAdresse.getAppartement()).isEqualTo(DEFAULT_APPARTEMENT);
+        assertThat(testAdresse.getEntree()).isEqualTo(DEFAULT_ENTREE);
         assertThat(testAdresse.getNumero()).isEqualTo(DEFAULT_NUMERO);
-        assertThat(testAdresse.getRue()).isEqualTo(DEFAULT_RUE);
+        assertThat(testAdresse.getVoie()).isEqualTo(DEFAULT_VOIE);
         assertThat(testAdresse.getComplement()).isEqualTo(DEFAULT_COMPLEMENT);
         assertThat(testAdresse.getCodepostal()).isEqualTo(DEFAULT_CODEPOSTAL);
         assertThat(testAdresse.getVille()).isEqualTo(DEFAULT_VILLE);
-        assertThat(testAdresse.getPositionx()).isEqualTo(DEFAULT_POSITIONX);
-        assertThat(testAdresse.getPositiony()).isEqualTo(DEFAULT_POSITIONY);
+        assertThat(testAdresse.getLatitude()).isEqualTo(DEFAULT_LATITUDE);
+        assertThat(testAdresse.getLongitude()).isEqualTo(DEFAULT_LONGITUDE);
     }
 
     @Test
@@ -171,13 +181,15 @@ public class AdresseResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(adresse.getId().intValue())))
+            .andExpect(jsonPath("$.[*].appartement").value(hasItem(DEFAULT_APPARTEMENT.toString())))
+            .andExpect(jsonPath("$.[*].entree").value(hasItem(DEFAULT_ENTREE.toString())))
             .andExpect(jsonPath("$.[*].numero").value(hasItem(DEFAULT_NUMERO.toString())))
-            .andExpect(jsonPath("$.[*].rue").value(hasItem(DEFAULT_RUE.toString())))
+            .andExpect(jsonPath("$.[*].voie").value(hasItem(DEFAULT_VOIE.toString())))
             .andExpect(jsonPath("$.[*].complement").value(hasItem(DEFAULT_COMPLEMENT.toString())))
             .andExpect(jsonPath("$.[*].codepostal").value(hasItem(DEFAULT_CODEPOSTAL)))
             .andExpect(jsonPath("$.[*].ville").value(hasItem(DEFAULT_VILLE.toString())))
-            .andExpect(jsonPath("$.[*].positionx").value(hasItem(DEFAULT_POSITIONX.toString())))
-            .andExpect(jsonPath("$.[*].positiony").value(hasItem(DEFAULT_POSITIONY.toString())));
+            .andExpect(jsonPath("$.[*].latitude").value(hasItem(DEFAULT_LATITUDE.toString())))
+            .andExpect(jsonPath("$.[*].longitude").value(hasItem(DEFAULT_LONGITUDE.toString())));
     }
     
     @Test
@@ -191,13 +203,15 @@ public class AdresseResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(adresse.getId().intValue()))
+            .andExpect(jsonPath("$.appartement").value(DEFAULT_APPARTEMENT.toString()))
+            .andExpect(jsonPath("$.entree").value(DEFAULT_ENTREE.toString()))
             .andExpect(jsonPath("$.numero").value(DEFAULT_NUMERO.toString()))
-            .andExpect(jsonPath("$.rue").value(DEFAULT_RUE.toString()))
+            .andExpect(jsonPath("$.voie").value(DEFAULT_VOIE.toString()))
             .andExpect(jsonPath("$.complement").value(DEFAULT_COMPLEMENT.toString()))
             .andExpect(jsonPath("$.codepostal").value(DEFAULT_CODEPOSTAL))
             .andExpect(jsonPath("$.ville").value(DEFAULT_VILLE.toString()))
-            .andExpect(jsonPath("$.positionx").value(DEFAULT_POSITIONX.toString()))
-            .andExpect(jsonPath("$.positiony").value(DEFAULT_POSITIONY.toString()));
+            .andExpect(jsonPath("$.latitude").value(DEFAULT_LATITUDE.toString()))
+            .andExpect(jsonPath("$.longitude").value(DEFAULT_LONGITUDE.toString()));
     }
 
     @Test
@@ -221,13 +235,15 @@ public class AdresseResourceIntTest {
         // Disconnect from session so that the updates on updatedAdresse are not directly saved in db
         em.detach(updatedAdresse);
         updatedAdresse
+            .appartement(UPDATED_APPARTEMENT)
+            .entree(UPDATED_ENTREE)
             .numero(UPDATED_NUMERO)
-            .rue(UPDATED_RUE)
+            .voie(UPDATED_VOIE)
             .complement(UPDATED_COMPLEMENT)
             .codepostal(UPDATED_CODEPOSTAL)
             .ville(UPDATED_VILLE)
-            .positionx(UPDATED_POSITIONX)
-            .positiony(UPDATED_POSITIONY);
+            .latitude(UPDATED_LATITUDE)
+            .longitude(UPDATED_LONGITUDE);
 
         restAdresseMockMvc.perform(put("/api/adresses")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -238,13 +254,15 @@ public class AdresseResourceIntTest {
         List<Adresse> adresseList = adresseRepository.findAll();
         assertThat(adresseList).hasSize(databaseSizeBeforeUpdate);
         Adresse testAdresse = adresseList.get(adresseList.size() - 1);
+        assertThat(testAdresse.getAppartement()).isEqualTo(UPDATED_APPARTEMENT);
+        assertThat(testAdresse.getEntree()).isEqualTo(UPDATED_ENTREE);
         assertThat(testAdresse.getNumero()).isEqualTo(UPDATED_NUMERO);
-        assertThat(testAdresse.getRue()).isEqualTo(UPDATED_RUE);
+        assertThat(testAdresse.getVoie()).isEqualTo(UPDATED_VOIE);
         assertThat(testAdresse.getComplement()).isEqualTo(UPDATED_COMPLEMENT);
         assertThat(testAdresse.getCodepostal()).isEqualTo(UPDATED_CODEPOSTAL);
         assertThat(testAdresse.getVille()).isEqualTo(UPDATED_VILLE);
-        assertThat(testAdresse.getPositionx()).isEqualTo(UPDATED_POSITIONX);
-        assertThat(testAdresse.getPositiony()).isEqualTo(UPDATED_POSITIONY);
+        assertThat(testAdresse.getLatitude()).isEqualTo(UPDATED_LATITUDE);
+        assertThat(testAdresse.getLongitude()).isEqualTo(UPDATED_LONGITUDE);
     }
 
     @Test

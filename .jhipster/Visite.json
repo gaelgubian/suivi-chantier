@@ -3,7 +3,20 @@
     "fields": [
         {
             "fieldName": "label",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 256
+        },
+        {
+            "fieldName": "resume",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 4000
         },
         {
             "fieldName": "date",
@@ -12,20 +25,6 @@
     ],
     "relationships": [
         {
-            "relationshipName": "bien",
-            "otherEntityName": "bien",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "one-to-one",
-            "relationshipName": "document",
-            "otherEntityName": "document",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "visite"
-        },
-        {
             "relationshipType": "one-to-many",
             "relationshipName": "comments",
             "otherEntityName": "comment",
@@ -33,9 +32,21 @@
         },
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "signature",
+            "relationshipName": "signatures",
             "otherEntityName": "signature",
             "otherEntityRelationshipName": "visite"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "supportsVisite",
+            "otherEntityName": "document",
+            "otherEntityRelationshipName": "visite"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "bien",
+            "otherEntityName": "bien",
+            "otherEntityField": "label"
         }
     ],
     "changelogDate": "20180926003006",

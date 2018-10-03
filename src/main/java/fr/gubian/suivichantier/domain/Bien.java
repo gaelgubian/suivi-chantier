@@ -26,25 +26,27 @@ public class Bien implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "jhi_label", nullable = false)
+    @Size(max = 256)
+    @Column(name = "jhi_label", length = 256, nullable = false)
     private String label;
 
-    @Column(name = "description")
+    @Size(max = 4000)
+    @Column(name = "description", length = 4000)
     private String description;
-
-    @ManyToOne
-    @JsonIgnoreProperties("biens")
-    private Chantier chantier;
 
     @OneToOne
     @JoinColumn(unique = true)
-    private Adresse adressechantier;
+    private Adresse adresseBien;
 
     @OneToMany(mappedBy = "bien")
     private Set<Document> documents = new HashSet<>();
 
     @OneToMany(mappedBy = "bien")
     private Set<Visite> visites = new HashSet<>();
+
+    @ManyToOne
+    @JsonIgnoreProperties("biens")
+    private Chantier chantier;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -81,30 +83,17 @@ public class Bien implements Serializable {
         this.description = description;
     }
 
-    public Chantier getChantier() {
-        return chantier;
+    public Adresse getAdresseBien() {
+        return adresseBien;
     }
 
-    public Bien chantier(Chantier chantier) {
-        this.chantier = chantier;
+    public Bien adresseBien(Adresse adresse) {
+        this.adresseBien = adresse;
         return this;
     }
 
-    public void setChantier(Chantier chantier) {
-        this.chantier = chantier;
-    }
-
-    public Adresse getAdressechantier() {
-        return adressechantier;
-    }
-
-    public Bien adressechantier(Adresse adresse) {
-        this.adressechantier = adresse;
-        return this;
-    }
-
-    public void setAdressechantier(Adresse adresse) {
-        this.adressechantier = adresse;
+    public void setAdresseBien(Adresse adresse) {
+        this.adresseBien = adresse;
     }
 
     public Set<Document> getDocuments() {
@@ -155,6 +144,19 @@ public class Bien implements Serializable {
 
     public void setVisites(Set<Visite> visites) {
         this.visites = visites;
+    }
+
+    public Chantier getChantier() {
+        return chantier;
+    }
+
+    public Bien chantier(Chantier chantier) {
+        this.chantier = chantier;
+        return this;
+    }
+
+    public void setChantier(Chantier chantier) {
+        this.chantier = chantier;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

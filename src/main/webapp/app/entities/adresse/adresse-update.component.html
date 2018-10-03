@@ -10,19 +10,59 @@
                         [(ngModel)]="adresse.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_numero">Numero</label>
+                    <label class="form-control-label" for="field_appartement" ngbTooltip="Numéro d&#39;appartement ou Boîte aux lettres, étage, couloir, escalier">Appartement</label>
+                    <input type="text" class="form-control" name="appartement" id="field_appartement"
+                        [(ngModel)]="adresse.appartement" maxlength="256"/>
+                    <div [hidden]="!(editForm.controls.appartement?.dirty && editForm.controls.appartement?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.appartement?.errors?.maxlength">
+                        This field cannot be longer than 256 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_entree" ngbTooltip="Entrée, batiment, immeuble, résidence, ZI">Entree</label>
+                    <input type="text" class="form-control" name="entree" id="field_entree"
+                        [(ngModel)]="adresse.entree" maxlength="256"/>
+                    <div [hidden]="!(editForm.controls.entree?.dirty && editForm.controls.entree?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.entree?.errors?.maxlength">
+                        This field cannot be longer than 256 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_numero" ngbTooltip="Numéro de rue, dont éventuellement le complément bis, ter...">Numero</label>
                     <input type="text" class="form-control" name="numero" id="field_numero"
-                        [(ngModel)]="adresse.numero" />
+                        [(ngModel)]="adresse.numero" maxlength="32"/>
+                    <div [hidden]="!(editForm.controls.numero?.dirty && editForm.controls.numero?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.numero?.errors?.maxlength">
+                        This field cannot be longer than 32 characters.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_rue">Rue</label>
-                    <input type="text" class="form-control" name="rue" id="field_rue"
-                        [(ngModel)]="adresse.rue" />
+                    <label class="form-control-label" for="field_voie" ngbTooltip="libellé de la voie">Voie</label>
+                    <input type="text" class="form-control" name="voie" id="field_voie"
+                        [(ngModel)]="adresse.voie" maxlength="256"/>
+                    <div [hidden]="!(editForm.controls.voie?.dirty && editForm.controls.voie?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.voie?.errors?.maxlength">
+                        This field cannot be longer than 256 characters.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_complement">Complement</label>
+                    <label class="form-control-label" for="field_complement" ngbTooltip="Complément d&#39;adresse (lieu dit, service particulier de distribution, mention spéciale ou commune géographique)">Complement</label>
                     <input type="text" class="form-control" name="complement" id="field_complement"
-                        [(ngModel)]="adresse.complement" />
+                        [(ngModel)]="adresse.complement" maxlength="256"/>
+                    <div [hidden]="!(editForm.controls.complement?.dirty && editForm.controls.complement?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.complement?.errors?.maxlength">
+                        This field cannot be longer than 256 characters.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_codepostal">Codepostal</label>
@@ -32,17 +72,23 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_ville">Ville</label>
                     <input type="text" class="form-control" name="ville" id="field_ville"
-                        [(ngModel)]="adresse.ville" />
+                        [(ngModel)]="adresse.ville" maxlength="256"/>
+                    <div [hidden]="!(editForm.controls.ville?.dirty && editForm.controls.ville?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.ville?.errors?.maxlength">
+                        This field cannot be longer than 256 characters.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_positionx">Positionx</label>
-                    <input type="text" class="form-control" name="positionx" id="field_positionx"
-                        [(ngModel)]="adresse.positionx" />
+                    <label class="form-control-label" for="field_latitude" ngbTooltip="position géographique (latitude)">Latitude</label>
+                    <input type="text" class="form-control" name="latitude" id="field_latitude"
+                        [(ngModel)]="adresse.latitude" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_positiony">Positiony</label>
-                    <input type="text" class="form-control" name="positiony" id="field_positiony"
-                        [(ngModel)]="adresse.positiony" />
+                    <label class="form-control-label" for="field_longitude" ngbTooltip="position géographique (longitude)">Longitude</label>
+                    <input type="text" class="form-control" name="longitude" id="field_longitude"
+                        [(ngModel)]="adresse.longitude" />
                 </div>
 
             </div>

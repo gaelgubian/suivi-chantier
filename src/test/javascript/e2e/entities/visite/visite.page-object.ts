@@ -27,9 +27,9 @@ export class VisiteUpdatePage {
     saveButton = element(by.id('save-entity'));
     cancelButton = element(by.id('cancel-save'));
     labelInput = element(by.id('field_label'));
+    resumeInput = element(by.id('field_resume'));
     dateInput = element(by.id('field_date'));
     bienSelect = element(by.id('field_bien'));
-    documentSelect = element(by.id('field_document'));
 
     async getPageTitle() {
         return this.pageTitle.getText();
@@ -41,6 +41,14 @@ export class VisiteUpdatePage {
 
     async getLabelInput() {
         return this.labelInput.getAttribute('value');
+    }
+
+    async setResumeInput(resume) {
+        await this.resumeInput.sendKeys(resume);
+    }
+
+    async getResumeInput() {
+        return this.resumeInput.getAttribute('value');
     }
 
     async setDateInput(date) {
@@ -68,25 +76,6 @@ export class VisiteUpdatePage {
 
     async getBienSelectedOption() {
         return this.bienSelect.element(by.css('option:checked')).getText();
-    }
-
-    async documentSelectLastOption() {
-        await this.documentSelect
-            .all(by.tagName('option'))
-            .last()
-            .click();
-    }
-
-    async documentSelectOption(option) {
-        await this.documentSelect.sendKeys(option);
-    }
-
-    getDocumentSelect(): ElementFinder {
-        return this.documentSelect;
-    }
-
-    async getDocumentSelectedOption() {
-        return this.documentSelect.element(by.css('option:checked')).getText();
     }
 
     async save() {

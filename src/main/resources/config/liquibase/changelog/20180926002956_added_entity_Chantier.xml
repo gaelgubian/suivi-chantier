@@ -17,30 +17,30 @@
         Added the entity Chantier.
     -->
     <changeSet id="20180926002956-1" author="jhipster">
-        <createTable tableName="chantier" remarks="application { config { baseName suivichantier, nativeLanguage fr, packageName fr.gubian.suivichantier, prodDatabaseType postgresql } }">
+        <createTable tableName="chantier" remarks="Un chantier">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="jhi_label" type="varchar(64)">
+            <column name="jhi_label" type="varchar(64)" remarks="Nom court du chantier permettant de faciliter les recherches">
                 <constraints nullable="false" />
             </column>
 
-            <column name="image" type="longblob">
+            <column name="image" type="longblob" remarks="Photo ou image représentant le chantier">
                 <constraints nullable="true" />
             </column>
             <column name="image_content_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="description" type="varchar(255)">
+            <column name="description" type="varchar(4000)" remarks="Description du chantier">
                 <constraints nullable="true" />
             </column>
 
-            <column name="date_debut" type="date">
+            <column name="date_debut" type="date" remarks="Date de lancement du chantier">
                 <constraints nullable="true" />
             </column>
 
-            <column name="date_fin" type="date">
+            <column name="date_fin" type="date" remarks="Date de fin (prévisionnelle) du chantier">
                 <constraints nullable="true" />
             </column>
 

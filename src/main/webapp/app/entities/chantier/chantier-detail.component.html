@@ -5,11 +5,11 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span>Label</span></dt>
+                <dt><span ngbTooltip="Nom court du chantier permettant de faciliter les recherches">Label</span></dt>
                 <dd>
                     <span>{{chantier.label}}</span>
                 </dd>
-                <dt><span>Image</span></dt>
+                <dt><span ngbTooltip="Photo ou image représentant le chantier">Image</span></dt>
                 <dd>
                     <div *ngIf="chantier.image">
                         <a (click)="openFile(chantier.imageContentType, chantier.image)">
@@ -18,15 +18,15 @@
                         {{chantier.imageContentType}}, {{byteSize(chantier.image)}}
                     </div>
                 </dd>
-                <dt><span>Description</span></dt>
+                <dt><span ngbTooltip="Description du chantier">Description</span></dt>
                 <dd>
                     <span>{{chantier.description}}</span>
                 </dd>
-                <dt><span>Date Debut</span></dt>
+                <dt><span ngbTooltip="Date de lancement du chantier">Date Debut</span></dt>
                 <dd>
                     <span>{{chantier.dateDebut}}</span>
                 </dd>
-                <dt><span>Date Fin</span></dt>
+                <dt><span ngbTooltip="Date de fin (prévisionnelle) du chantier">Date Fin</span></dt>
                 <dd>
                     <span>{{chantier.dateFin}}</span>
                 </dd>

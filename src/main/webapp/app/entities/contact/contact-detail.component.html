@@ -13,6 +13,10 @@
                 <dd>
                     <span>{{contact.login}}</span>
                 </dd>
+                <dt><span ngbTooltip="Raison sociale ou dénomination">Raisonsociale</span></dt>
+                <dd>
+                    <span>{{contact.raisonsociale}}</span>
+                </dd>
                 <dt><span>Prenom</span></dt>
                 <dd>
                     <span>{{contact.prenom}}</span>
@@ -49,10 +53,10 @@
                 <dd>
                     <span>{{contact.corpmetier}}</span>
                 </dd>
-                <dt><span>Adressecontact</span></dt>
+                <dt><span>Adresse</span></dt>
                 <dd>
-                    <div *ngIf="contact.adressecontact">
-                        <a [routerLink]="['/adresse', contact.adressecontact?.id, 'view']">{{contact.adressecontact?.id}}</a>
+                    <div *ngIf="contact.adresse">
+                        <a [routerLink]="['/adresse', contact.adresse?.id, 'view']">{{contact.adresse?.id}}</a>
                     </div>
                 </dd>
             </dl>

@@ -17,19 +17,27 @@
         Added the entity Adresse.
     -->
     <changeSet id="20180926002959-1" author="jhipster">
-        <createTable tableName="adresse">
+        <createTable tableName="adresse" remarks="Adresse postale d&apos;un bien ou d&apos;une personne 6 lignes de 38 caractères maximum (éventuellement une 7ème ligne pour l’international, pour indiquer le pays). Les lignes à blanc – non renseignées – sont supprimées pour rendre l’adresse plus esthétique. L’adresse est alignée à gauche, Les lignes 4 à 6 sont mises en majuscule. B to C : L1 : Civilité - Titre ou Qualité - Prénom - Nom L2 : Numéro App ou BAL - Etage - Couloir - Esc L3 : Entrée - Bâtiment - Immeuble - Résidence L4 : Numéro - Libellé de la voie L5 : Lieu dit ou Service particulier de distribution L6 : Code postal et Localité de destination ou Code cedex et Libellé cedex B to B : L1 : Raison sociale ou Dénomination L2 : Identité du destinataire et/ou Service L3 : Entrée - Bâtiment - Immeuble - Résidence - ZI L4 : Numéro - Libellé de la voie L5 : Mention spéciale et Commune géographique L6 : Code postal et Localité de destination ou Code cedex et Libellé cedex">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="numero" type="varchar(255)">
+            <column name="appartement" type="varchar(256)" remarks="Numéro d&apos;appartement ou Boîte aux lettres, étage, couloir, escalier">
                 <constraints nullable="true" />
             </column>
 
-            <column name="rue" type="varchar(255)">
+            <column name="entree" type="varchar(256)" remarks="Entrée, batiment, immeuble, résidence, ZI">
                 <constraints nullable="true" />
             </column>
 
-            <column name="complement" type="varchar(255)">
+            <column name="numero" type="varchar(32)" remarks="Numéro de rue, dont éventuellement le complément bis, ter...">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="voie" type="varchar(256)" remarks="libellé de la voie">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="complement" type="varchar(256)" remarks="Complément d&apos;adresse (lieu dit, service particulier de distribution, mention spéciale ou commune géographique)">
                 <constraints nullable="true" />
             </column>
 
@@ -37,15 +45,15 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="ville" type="varchar(255)">
+            <column name="ville" type="varchar(256)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="positionx" type="varchar(255)">
+            <column name="latitude" type="varchar(255)" remarks="position géographique (latitude)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="positiony" type="varchar(255)">
+            <column name="longitude" type="varchar(255)" remarks="position géographique (longitude)">
                 <constraints nullable="true" />
             </column>
 

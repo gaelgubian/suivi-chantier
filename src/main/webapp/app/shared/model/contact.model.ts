@@ -1,5 +1,4 @@
 import { IAdresse } from 'app/shared/model//adresse.model';
-import { IChantierIntervenant } from 'app/shared/model//chantier-intervenant.model';
 
 export const enum Corpsmetier {
     TERRASSEMENT = 'TERRASSEMENT',
@@ -16,6 +15,7 @@ export interface IContact {
     id?: number;
     label?: string;
     login?: string;
+    raisonsociale?: string;
     prenom?: string;
     nom?: string;
     email?: string;
@@ -25,8 +25,7 @@ export interface IContact {
     description?: string;
     poste?: string;
     corpmetier?: Corpsmetier;
-    adressecontact?: IAdresse;
-    chantierIntervenant?: IChantierIntervenant;
+    adresse?: IAdresse;
 }
 
 export class Contact implements IContact {
@@ -34,6 +33,7 @@ export class Contact implements IContact {
         public id?: number,
         public label?: string,
         public login?: string,
+        public raisonsociale?: string,
         public prenom?: string,
         public nom?: string,
         public email?: string,
@@ -43,7 +43,6 @@ export class Contact implements IContact {
         public description?: string,
         public poste?: string,
         public corpmetier?: Corpsmetier,
-        public adressecontact?: IAdresse,
-        public chantierIntervenant?: IChantierIntervenant
+        public adresse?: IAdresse
     ) {}
 }

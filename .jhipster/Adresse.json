@@ -2,16 +2,49 @@
     "name": "Adresse",
     "fields": [
         {
-            "fieldName": "numero",
-            "fieldType": "String"
+            "fieldName": "appartement",
+            "javadoc": "Numéro d'appartement ou Boîte aux lettres, étage, couloir, escalier",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 256
         },
         {
-            "fieldName": "rue",
-            "fieldType": "String"
+            "fieldName": "entree",
+            "javadoc": "Entrée, batiment, immeuble, résidence, ZI",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 256
+        },
+        {
+            "fieldName": "numero",
+            "javadoc": "Numéro de rue, dont éventuellement le complément bis, ter...",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 32
+        },
+        {
+            "fieldName": "voie",
+            "javadoc": "libellé de la voie",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 256
         },
         {
             "fieldName": "complement",
-            "fieldType": "String"
+            "javadoc": "Complément d'adresse (lieu dit, service particulier de distribution, mention spéciale ou commune géographique)",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 256
         },
         {
             "fieldName": "codepostal",
@@ -19,19 +52,41 @@
         },
         {
             "fieldName": "ville",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 256
+        },
+        {
+            "fieldName": "latitude",
+            "javadoc": "position géographique (latitude)",
             "fieldType": "String"
         },
         {
-            "fieldName": "positionx",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "positiony",
+            "fieldName": "longitude",
+            "javadoc": "position géographique (longitude)",
             "fieldType": "String"
         }
     ],
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "contact",
+            "otherEntityName": "contact",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "adresse"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "bien",
+            "otherEntityName": "bien",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "adresseBien"
+        }
+    ],
     "changelogDate": "20180926002959",
+    "javadoc": "Adresse postale d'un bien ou d'une personne\n\n6 lignes de 38 caractères maximum (éventuellement une 7ème ligne pour l’international, pour indiquer le pays).\nLes lignes à blanc – non renseignées – sont supprimées pour rendre l’adresse plus esthétique.\nL’adresse est alignée à gauche, Les lignes 4 à 6 sont mises en majuscule.\n\nB to C :\nL1 : Civilité - Titre ou Qualité - Prénom - Nom\nL2 : Numéro App ou BAL - Etage - Couloir - Esc\nL3 : Entrée - Bâtiment - Immeuble - Résidence\nL4 : Numéro - Libellé de la voie\nL5 : Lieu dit ou Service particulier de distribution\nL6 : Code postal et Localité de destination ou Code cedex et Libellé cedex\n\nB to B :\nL1 : Raison sociale ou Dénomination\nL2 : Identité du destinataire et/ou Service\nL3 : Entrée - Bâtiment - Immeuble - Résidence - ZI\nL4 : Numéro - Libellé de la voie\nL5 : Mention spéciale et Commune géographique\nL6 : Code postal et Localité de destination ou Code cedex et Libellé cedex",
     "entityTableName": "adresse",
     "dto": "no",
     "pagination": "pagination",

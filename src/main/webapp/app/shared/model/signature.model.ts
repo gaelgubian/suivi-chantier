@@ -7,7 +7,7 @@ export interface ISignature {
     imageContentType?: string;
     image?: any;
     chantierIntervenant?: IChantierIntervenant;
-    document?: IDocument;
+    documents?: IDocument;
     visite?: IVisite;
 }
 
@@ -17,7 +17,7 @@ export class Signature implements ISignature {
         public imageContentType?: string,
         public image?: any,
         public chantierIntervenant?: IChantierIntervenant,
-        public document?: IDocument,
+        public documents?: IDocument,
         public visite?: IVisite
     ) {}
 }

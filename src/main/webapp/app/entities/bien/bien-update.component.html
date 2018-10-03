@@ -12,32 +12,42 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_label">Label</label>
                     <input type="text" class="form-control" name="label" id="field_label"
-                        [(ngModel)]="bien.label" required/>
+                        [(ngModel)]="bien.label" required maxlength="256"/>
                     <div [hidden]="!(editForm.controls.label?.dirty && editForm.controls.label?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.label?.errors?.required">
                         This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.label?.errors?.maxlength">
+                        This field cannot be longer than 256 characters.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_description">Description</label>
                     <input type="text" class="form-control" name="description" id="field_description"
-                        [(ngModel)]="bien.description" />
+                        [(ngModel)]="bien.description" maxlength="4000"/>
+                    <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.description?.errors?.maxlength">
+                        This field cannot be longer than 4000 characters.
+                        </small>
+                    </div>
                 </div>
 
+                <div class="form-group">
+                    <label class="form-control-label" for="field_adresseBien">Adresse Bien</label>
+                    <select class="form-control" id="field_adresseBien" name="adresseBien" [(ngModel)]="bien.adresseBien">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="adresseOption.id === bien.adresseBien?.id ? bien.adresseBien : adresseOption" *ngFor="let adresseOption of adressebiens; trackBy: trackAdresseById">{{adresseOption.id}}</option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_chantier">Chantier</label>
                     <select class="form-control" id="field_chantier" name="chantier" [(ngModel)]="bien.chantier" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="chantierOption.id === bien.chantier?.id ? bien.chantier : chantierOption" *ngFor="let chantierOption of chantiers; trackBy: trackChantierById">{{chantierOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_adressechantier">Adressechantier</label>
-                    <select class="form-control" id="field_adressechantier" name="adressechantier" [(ngModel)]="bien.adressechantier">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="adresseOption.id === bien.adressechantier?.id ? bien.adressechantier : adresseOption" *ngFor="let adresseOption of adressechantiers; trackBy: trackAdresseById">{{adresseOption.id}}</option>
+                        <option [ngValue]="chantierOption.id === bien.chantier?.id ? bien.chantier : chantierOption" *ngFor="let chantierOption of chantiers; trackBy: trackChantierById">{{chantierOption.label}}</option>
                     </select>
                 </div>
             </div>

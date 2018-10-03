@@ -12,6 +12,8 @@ import { IIcon } from 'app/shared/model/icon.model';
 import { IconService } from 'app/entities/icon';
 import { IVisite } from 'app/shared/model/visite.model';
 import { VisiteService } from 'app/entities/visite';
+import { IDocument } from 'app/shared/model/document.model';
+import { DocumentService } from 'app/entities/document';
 
 @Component({
     selector: 'jhi-comment-update',
@@ -24,6 +26,8 @@ export class CommentUpdateComponent implements OnInit {
     icons: IIcon[];
 
     visites: IVisite[];
+
+    documents: IDocument[];
     modified: string;
     echeanceDp: any;
 
@@ -33,6 +37,7 @@ export class CommentUpdateComponent implements OnInit {
         private commentService: CommentService,
         private iconService: IconService,
         private visiteService: VisiteService,
+        private documentService: DocumentService,
         private elementRef: ElementRef,
         private activatedRoute: ActivatedRoute
     ) {}
@@ -51,6 +56,12 @@ export class CommentUpdateComponent implements OnInit {
         this.visiteService.query().subscribe(
             (res: HttpResponse<IVisite[]>) => {
                 this.visites = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.documentService.query().subscribe(
+            (res: HttpResponse<IDocument[]>) => {
+                this.documents = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -108,6 +119,10 @@ export class CommentUpdateComponent implements OnInit {
     }
 
     trackVisiteById(index: number, item: IVisite) {
+        return item.id;
+    }
+
+    trackDocumentById(index: number, item: IDocument) {
         return item.id;
     }
     get comment() {
