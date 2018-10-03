@@ -9,64 +9,187 @@ application {
 }
 */
 
+
+/*
+	Un chantier
+*/
 entity Chantier {
+	/*
+    	Nom court du chantier permettant de faciliter les recherches
+    */
     label String required maxlength(64),
+    /*
+    	Photo ou image représentant le chantier
+    */
     image ImageBlob maxbytes(1024000),
-    description String,
+    /*
+    	Description du chantier
+    */
+    description String maxlength(4000),
+    /*
+    	Date de lancement du chantier
+    */
     dateDebut LocalDate,
+    /*
+    	Date de fin (prévisionnelle) du chantier
+    */
     dateFin LocalDate
 }
 
+
+/*
+	Un intervenant sur un chantier particulier.
+    Chaque chantier devrait au moins comporter une MOA et une MOE.
+*/
 entity ChantierIntervenant {
 	corpmetier Corpsmetier,
     role Role
 }
 
+/*
+
+*/
 entity Bien {
-	label String required,
-    description String
+	label String required maxlength(256),
+    description String maxlength(4000)
 }
 
+/*
+	Adresse postale d'un bien ou d'une personne
+    
+    6 lignes de 38 caractères maximum (éventuellement une 7ème ligne pour l’international, pour indiquer le pays).
+    Les lignes à blanc – non renseignées – sont supprimées pour rendre l’adresse plus esthétique.
+    L’adresse est alignée à gauche, Les lignes 4 à 6 sont mises en majuscule.
+    
+    B to C :
+    L1 : Civilité - Titre ou Qualité - Prénom - Nom
+    L2 : Numéro App ou BAL - Etage - Couloir - Esc
+    L3 : Entrée - Bâtiment - Immeuble - Résidence
+    L4 : Numéro - Libellé de la voie
+    L5 : Lieu dit ou Service particulier de distribution
+    L6 : Code postal et Localité de destination ou Code cedex et Libellé cedex
+    
+    B to B :
+    L1 : Raison sociale ou Dénomination
+    L2 : Identité du destinataire et/ou Service
+    L3 : Entrée - Bâtiment - Immeuble - Résidence - ZI
+    L4 : Numéro - Libellé de la voie
+    L5 : Mention spéciale et Commune géographique
+    L6 : Code postal et Localité de destination ou Code cedex et Libellé cedex
+        
+*/
 entity Adresse {
-	numero String,
-    rue String,
-    complement String,
+	/* Numéro d'appartement ou Boîte aux lettres, étage, couloir, escalier */
+	appartement String maxlength(256),
+	/* Entrée, batiment, immeuble, résidence, ZI */
+	entree String maxlength(256),
+	/* Numéro de rue, dont éventuellement le complément bis, ter...*/
+	numero String maxlength(32),
+    /* libellé de la voie */
+    voie String maxlength(256),
+    /* Complément d'adresse (lieu dit, service particulier de distribution, mention spéciale ou commune géographique) */
+    complement String maxlength(256),
     codepostal Integer,
-    ville String,
-    positionx String,
-    positiony String
+    ville String maxlength(256),
+    /* position géographique (latitude) */
+    latitude String,
+    /* position géographique (longitude) */
+    longitude String
 }
 
+/*
+	Document
+*/
 entity Document {
-	label String required,
-    description String,
-    path String
+	/*
+    	Nom du document
+    */
+	label String required maxlength(256),
+    /*
+    	Détail sur le document, résumé, commentaires...
+    */
+    description String maxlength(4000),
+    /*
+    	Chemin d'accès complet au fichier sur le serveur. Dont le nom du fichier après renommage de sécurité
+    */
+    path String maxlength(4000),
+    /*
+    	nom du fichier original
+    */
+    filename String maxlength(512),
+    /* TODO : attribut à supprimer. Stocker le fichier sur le système, le convertir en images (tuiles) */
+    content Blob maxbytes(1024000)
 }
 
+/*
+	Tuile (partie d'un document sous forme d'image)
+*/
 entity DocumentTuile {
     content ImageBlob maxbytes(1024000)
 }
 
+/*
+	image de la signature d'un document (saisie par stylet) par une personne
+*/
 entity Signature {
 	image ImageBlob maxbytes(102400)
 }
 
+/*
+	Commentaire effectué lors d'une visite
+*/
 entity Comment {
-	label String,
-    comment String,
+	/*
+    	Objet du commentaire
+    */
+	label String required maxlength(256),
+    /*
+    	Détail du commentaire
+    */
+    comment String maxlength(4000),
+    /*
+    	Position (X) du commentaire lorsqu'il est lié à un document
+    */
     positionx Integer,
+    /*
+    	Position (Y) du commentaire lorsqu'il est lié à un document
+    */
     positiony Integer,
+    /*
+    	Largeur du commentaire lorsqu'il est lié à un document
+    */
     width Integer,
+    /*
+    	Hauteur du commentaire lorsqu'il est lié à un document
+    */
     heigth Integer,
+    /*
+    	Date de dernière modification
+    */
 	modified ZonedDateTime,
+    /*
+    	Echéance de résolution
+    */
     echeance LocalDate,
+    /*
+    	Image illustrant le commentaire effectué. Par exemple une photo de l'anomalie évoquée dans le commentaire.
+    */
     image ImageBlob maxbytes(1024000),
+    /*
+    	Type de commentaire
+    */
     type CommentType,
+    /*
+    	Statut de l'avancement de la prise en compte du commentaire
+    */
     state CommentState
 }
 
+/*
+	Icon 
+*/
 entity Icon {
-	label String,
+	label String required maxlength(256),
     image ImageBlob maxbytes(1024)
 }
 
@@ -74,62 +197,78 @@ entity Icon {
 Login calculé à partir du nom et prénom.
 */
 entity Contact {
-	label String,
-    login String,
+	label String required maxlength(256),
+    login String maxlength(256),
+    /* Raison sociale ou dénomination */
+    raisonsociale String maxlength(256),
 	prenom String maxlength(256),
 	nom String maxlength(256),
     email String maxlength(256),
-    telephoneMobile String,
-    telephone2 String,
-    fax String,
-	description String,
-    poste String,
+    telephoneMobile String maxlength(20),
+    telephone2 String maxlength(20),
+    fax String maxlength(20),
+	description String maxlength(4000),
+    poste String maxlength(256),
     corpmetier Corpsmetier,
 }
 
 /* Réunion, visite */
 entity Visite {
-	label String,
+	label String required maxlength(256),
+    resume String maxlength(4000),
     date LocalDate
 }
 
+/*
+	Statut de l'avancement de la prise en compte du commentaire
+*/
 enum CommentState {
 	A_VERIFIER, A_CORRIGER, CORRIGE, VALIDE, ABANDONNE
 }
 
+/*
+	Rôle d'un intervenant
+*/
 enum Role {
 	MOA, MOE, ETUDE, CONTROLE
 }
 
+/* 
+	Type de commentaire
+*/
 enum CommentType {
-    ADMINISTATIF, PLANS, ETUDE, AVANCEMENT, SECURITE, DIVERS
+    ADMINISTATIF, PLANS, ETUDE, AVANCEMENT, SECURITE, NON_CONFORMITE, DIVERS
 }
 
+/*
+	Corps de métier d'un intervenant
+*/
 enum Corpsmetier {
 	TERRASSEMENT, GROS_OEUVRE, MENUISERIE, ELECTRICITE, PLOMBERIE, CHAUFFAGE, CARRELAGE, PLATRE
 }
 
 relationship OneToMany {
-    Chantier{biens} to Bien,
+    Chantier{biens} to Bien{chantier(label)},
     Chantier{documents(label)} to Document{chantier(label)},
     Bien{documents(label)} to Document{bien(label)},
-    Visite{comments} to Comment,
-    Bien{visites} to Visite,
-    Chantier to ChantierIntervenant,
-    Document to Signature,
-    Visite to Signature,
-    Document to DocumentTuile
+    Visite{comments} to Comment{visite(label)},
+    Bien{visites} to Visite{bien(label)},
+    Chantier{chantierIntervenants} to ChantierIntervenant{chantier(label)},
+    Document{signatures} to Signature{documents(label)},
+    Visite{signatures} to Signature{visite(label)},
+    Document{tuiles} to DocumentTuile{documents(label)}
+    Document{comments} to Comment{documents(label)}
+    Visite{supportsVisite} to Document{visite(label)},
 }
 
 relationship ManyToOne {
-    Comment{icon} to Icon,
+    Comment{icon(label)} to Icon,
 }
 
 relationship OneToOne {
-    Contact{adressecontact} to Adresse,
-    Bien{adressechantier} to Adresse,
-    Visite to Document,
-    ChantierIntervenant to Contact,
+    Contact{adresse} to Adresse{contact(label)},
+    Bien{adresseBien} to Adresse{bien(label)},
+    ChantierIntervenant{contact} to Contact,
     Signature to ChantierIntervenant
 }
 
