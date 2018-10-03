@@ -112,7 +112,7 @@ enum Corpsmetier {
 relationship OneToMany {
     Chantier{biens} to Bien,
     Chantier{documents(label)} to Document{chantier(label)},
-    Bien{documents(label)} to Document{chantier(label)},
+    Bien{documents(label)} to Document{bien(label)},
     Visite{comments} to Comment,
     Bien{visites} to Visite,
     Chantier to ChantierIntervenant,
